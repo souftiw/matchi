@@ -1,1 +1,527 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#08110d">
+<title>MATCHI - Play Football Together</title>
 
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #08110d;
+    color: white;
+    direction: rtl;
+}
+
+header {
+    padding: 22px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #203328;
+}
+
+.logo {
+    color: #35db79;
+    font-size: 27px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.profile {
+    background: #193626;
+    padding: 10px 14px;
+    border-radius: 30px;
+    color: #62ed96;
+}
+
+.container {
+    max-width: 650px;
+    margin: auto;
+    padding: 20px 16px;
+}
+
+.hero {
+    background: linear-gradient(135deg,#153e27,#081c12);
+    padding: 27px 20px;
+    border-radius: 20px;
+    margin-bottom: 25px;
+    border: 1px solid #245c39;
+}
+
+.hero h1 {
+    font-size: 27px;
+    margin-bottom: 12px;
+}
+
+.hero p {
+    color: #c3d8ca;
+    line-height: 1.7;
+}
+
+.section-title {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.type-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.type-card {
+    background: #111e16;
+    border: 2px solid #263b2e;
+    border-radius: 17px;
+    padding: 20px 10px;
+    text-align: center;
+    cursor: pointer;
+    color: white;
+}
+
+.type-card.active {
+    border-color: #35db79;
+    background: #173b25;
+}
+
+.type-card .icon {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.type-card h3 {
+    color: #48e889;
+    font-size: 17px;
+}
+
+.type-card p {
+    color: #a5b9aa;
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+label {
+    display: block;
+    margin: 14px 0 8px;
+    color: #d9e8dd;
+    font-size: 14px;
+}
+
+input, select {
+    width: 100%;
+    padding: 14px;
+    border-radius: 11px;
+    border: 1px solid #304638;
+    background: #111e16;
+    color: white;
+    font-size: 16px;
+    outline: none;
+}
+
+input:focus, select:focus {
+    border-color: #35db79;
+}
+
+button {
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.main-btn {
+    width: 100%;
+    background: #27c96a;
+    color: #06130a;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+    margin-top: 18px;
+}
+
+.main-btn:active {
+    transform: scale(.98);
+}
+
+.matches-section {
+    margin-top: 32px;
+}
+
+.match-card {
+    background: #111e16;
+    border: 1px solid #294232;
+    border-radius: 16px;
+    padding: 17px;
+    margin-bottom: 13px;
+}
+
+.match-card h3 {
+    color: #54e88b;
+    margin-bottom: 12px;
+}
+
+.match-info {
+    color: #c4d2c8;
+    font-size: 14px;
+    line-height: 2;
+}
+
+.join-btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #214b30;
+    color: #68ed98;
+    font-weight: bold;
+}
+
+.join-btn:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+.form-box {
+    background: #101c14;
+    border: 1px solid #294232;
+    border-radius: 18px;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+.empty {
+    color: #9caf9f;
+    text-align: center;
+    padding: 25px 10px;
+    background: #111e16;
+    border-radius: 13px;
+    line-height: 1.8;
+}
+
+footer {
+    text-align: center;
+    color: #829487;
+    padding: 30px 10px;
+    font-size: 12px;
+}
+
+.small {
+    color: #9db2a2;
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">MATCHI ⚽</div>
+    <div class="profile">👤 اللاعب</div>
+</header>
+
+<div class="container">
+
+    <div class="hero">
+        <h1>لقا فين تلعب! ⚽</h1>
+        <p>
+            قلب على الماتشات القريبة منك،
+            لقا لاعبين جداد، وكمل فريقك.
+            الكرة كتجمعنا!
+        </p>
+    </div>
+
+    <h2 class="section-title">اختار نوع كرة القدم</h2>
+
+    <div class="type-grid">
+
+        <button class="type-card active" data-type="MINI FOOT">
+            <div class="icon">⚽</div>
+            <h3>MINI FOOT</h3>
+            <p>ملاعب كرة القدم الصغيرة</p>
+        </button>
+
+        <button class="type-card" data-type="GRAND FOOT">
+            <div class="icon">🏟️</div>
+            <h3>GRAND FOOT</h3>
+            <p>ملاعب كرة القدم الكبيرة</p>
+        </button>
+
+    </div>
+
+    <h2 class="section-title">📍 اختار المدينة ديالك</h2>
+
+    <select id="city">
+        <option value="">اختار المدينة</option>
+        <option>آسفي</option>
+        <option>مراكش</option>
+        <option>الدار البيضاء</option>
+        <option>الرباط</option>
+        <option>فاس</option>
+        <option>طنجة</option>
+        <option>أكادير</option>
+        <option>الجديدة</option>
+        <option>الصويرة</option>
+        <option>القنيطرة</option>
+        <option>بني ملال</option>
+        <option>وجدة</option>
+        <option>تطوان</option>
+        <option>الناظور</option>
+        <option>المحمدية</option>
+    </select>
+
+    <label>الحي (اختياري)</label>
+    <input id="district" type="text" placeholder="مثلاً: حي السلام">
+
+    <div class="matches-section">
+
+        <h2 class="section-title">🔥 الماتشات المتاحة</h2>
+
+        <div id="matches">
+            <div class="empty">
+                ⚽ اختار المدينة ونشر أول ماتش باش يبدا النشاط!
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-box">
+
+        <h2 class="section-title">➕ نظم ماتش جديد</h2>
+
+        <label>اسم الملعب</label>
+        <input id="ground" type="text" placeholder="اسم الملعب">
+
+        <label>تاريخ المباراة</label>
+        <input id="date" type="date">
+
+        <label>وقت المباراة</label>
+        <input id="time" type="time">
+
+        <label>عدد اللاعبين اللي باقي خاصينك</label>
+        <input id="needed" type="number" min="1" max="100" placeholder="مثلاً: 4">
+
+        <label>رقم الهاتف للتواصل</label>
+        <input id="phone" type="tel" placeholder="رقم الهاتف">
+
+        <button class="main-btn" id="publish">
+            نشر الماتش ⚽
+        </button>
+
+        <p class="small" id="message"></p>
+
+    </div>
+
+</div>
+
+<footer>
+    MATCHI © 2026<br>
+    PLAY TOGETHER. ENJOY FOOTBALL.
+</footer>
+
+<script>
+
+let selectedType = "MINI FOOT";
+
+let matches = [];
+
+try {
+    matches = JSON.parse(localStorage.getItem("matchi_matches")) || [];
+} catch(e) {
+    matches = [];
+}
+
+const city = document.getElementById("city");
+const district = document.getElementById("district");
+const matchesBox = document.getElementById("matches");
+const message = document.getElementById("message");
+
+document.querySelectorAll(".type-card").forEach(card => {
+
+    card.addEventListener("click", function() {
+
+        document.querySelectorAll(".type-card").forEach(c => {
+            c.classList.remove("active");
+        });
+
+        this.classList.add("active");
+
+        selectedType = this.dataset.type;
+
+        displayMatches();
+
+    });
+
+});
+
+city.addEventListener("change", displayMatches);
+district.addEventListener("input", displayMatches);
+
+function displayMatches() {
+
+    const selectedCity = city.value;
+
+    const results = matches.filter(match => {
+
+        return match.city === selectedCity &&
+               match.type === selectedType;
+
+    });
+
+    if (!selectedCity) {
+
+        matchesBox.innerHTML =
+        '<div class="empty">📍 اختار المدينة باش تشوف الماتشات.</div>';
+
+        return;
+
+    }
+
+    if (results.length === 0) {
+
+        matchesBox.innerHTML =
+        '<div class="empty">ما كاين حتى ماتش منشور دابا فهاد الاختيار.<br>كون أول واحد ينظم ماتش! ⚽</div>';
+
+        return;
+
+    }
+
+    matchesBox.innerHTML = "";
+
+    results.forEach(match => {
+
+        const card = document.createElement("div");
+
+        card.className = "match-card";
+
+        const title = document.createElement("h3");
+        title.textContent = "⚽ " + match.type;
+
+        const info = document.createElement("div");
+        info.className = "match-info";
+
+        info.textContent =
+            "🏟️ الملعب: " + match.ground +
+            "\n📍 المدينة: " + match.city +
+            "\n🏘️ الحي: " + (match.district || "غير محدد") +
+            "\n📅 التاريخ: " + match.date +
+            "\n🕒 الوقت: " + match.time +
+            "\n👥 اللاعبين المتبقين: " + match.needed;
+
+        info.style.whiteSpace = "pre-line";
+
+        const join = document.createElement("button");
+
+        join.className = "join-btn";
+
+        join.textContent = match.needed > 0
+            ? "طلب الانضمام للماتش"
+            : "الماتش مكتمل";
+
+        join.disabled = match.needed <= 0;
+
+        join.addEventListener("click", () => {
+
+            alert(
+                "هاد النسخة تجريبية. الانضمام الحقيقي والتواصل بين اللاعبين غادي نفعّلوه ملي نربطو التطبيق بقاعدة البيانات."
+            );
+
+        });
+
+        card.appendChild(title);
+        card.appendChild(info);
+        card.appendChild(join);
+
+        matchesBox.appendChild(card);
+
+    });
+
+}
+
+document.getElementById("publish").addEventListener("click", function() {
+
+    const ground = document.getElementById("ground").value.trim();
+    const date = document.getElementById("date").value;
+    const time = document.getElementById("time").value;
+    const needed = Number(document.getElementById("needed").value);
+    const phone = document.getElementById("phone").value.trim();
+
+    if (!city.value || !ground || !date || !time || !phone ||
+        !Number.isInteger(needed) || needed < 1 || needed > 100) {
+
+        message.textContent = "⚠️ عافاك عمر جميع المعلومات بطريقة صحيحة.";
+        message.style.color = "#ff7777";
+
+        return;
+
+    }
+
+    if (date < new Date().toLocaleDateString("en-CA")) {
+
+        message.textContent = "⚠️ اختار تاريخ اليوم أو تاريخ فالمستقبل.";
+        message.style.color = "#ff7777";
+
+        return;
+
+    }
+
+    const match = {
+
+        id: Date.now(),
+        type: selectedType,
+        city: city.value,
+        district: district.value.trim(),
+        ground: ground,
+        date: date,
+        time: time,
+        needed: needed,
+        phone: phone
+
+    };
+
+    matches.unshift(match);
+
+    try {
+
+        localStorage.setItem("matchi_matches", JSON.stringify(matches));
+
+    } catch(e) {
+
+        matches.shift();
+
+        message.textContent = "وقع مشكل فحفظ الماتش. حاول مرة أخرى.";
+        message.style.color = "#ff7777";
+
+        return;
+
+    }
+
+    message.textContent = "✅ تنشر الماتش بنجاح!";
+    message.style.color = "#48e889";
+
+    document.getElementById("ground").value = "";
+    document.getElementById("date").value = "";
+    document.getElementById("time").value = "";
+    document.getElementById("needed").value = "";
+    document.getElementById("phone").value = "";
+
+    displayMatches();
+
+});
+
+displayMatches();
+
+</script>
+
+</body>
+</html>
