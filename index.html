@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#08110d">
+
 <title>MATCHI - Play Football Together</title>
 
 <style>
@@ -32,7 +33,6 @@ header {
     color: #35db79;
     font-size: 27px;
     font-weight: 900;
-    letter-spacing: 1px;
 }
 
 .profile {
@@ -40,6 +40,7 @@ header {
     padding: 10px 14px;
     border-radius: 30px;
     color: #62ed96;
+    font-size: 12px;
 }
 
 .container {
@@ -147,8 +148,8 @@ button {
     margin-top: 18px;
 }
 
-.main-btn:active {
-    transform: scale(.98);
+.main-btn:disabled {
+    opacity: .5;
 }
 
 .matches-section {
@@ -172,6 +173,7 @@ button {
     color: #c4d2c8;
     font-size: 14px;
     line-height: 2;
+    white-space: pre-line;
 }
 
 .join-btn {
@@ -187,7 +189,6 @@ button {
 
 .join-btn:disabled {
     opacity: .5;
-    cursor: not-allowed;
 }
 
 .form-box {
@@ -227,7 +228,7 @@ footer {
 
 <header>
     <div class="logo">MATCHI ⚽</div>
-    <div class="profile">👤 اللاعب</div>
+    <div class="profile" id="profile">جاري الاتصال...</div>
 </header>
 
 <div class="container">
@@ -288,9 +289,7 @@ footer {
         <h2 class="section-title">🔥 الماتشات المتاحة</h2>
 
         <div id="matches">
-            <div class="empty">
-                ⚽ اختار المدينة ونشر أول ماتش باش يبدا النشاط!
-            </div>
+            <div class="empty">جاري تحميل المباريات...</div>
         </div>
 
     </div>
@@ -314,8 +313,8 @@ footer {
         <label>رقم الهاتف للتواصل</label>
         <input id="phone" type="tel" placeholder="رقم الهاتف">
 
-        <button class="main-btn" id="publish">
-            نشر الماتش ⚽
+        <button class="main-btn" id="publish" disabled>
+            جاري الاتصال...
         </button>
 
         <p class="small" id="message"></p>
@@ -329,22 +328,96 @@ footer {
     PLAY TOGETHER. ENJOY FOOTBALL.
 </footer>
 
-<script>
+<script type="module">
 
-let selectedType = "MINI FOOT";
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
 
-let matches = [];
-
-try {
-    matches = JSON.parse(localStorage.getItem("matchi_matches")) || [];
-} catch(e) {
-    matches = [];
+import {
+    getAuth,
+    signInAnonymously
 }
+from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
+
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    doc,
+    setDoc,
+    getDocs,
+    query,
+    where,
+    onSnapshot,
+    serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+    apiKey: "AIzaSyB_1hDwkdhlzpeJlAQbcZznu_kFcu91f-0",
+    authDomain: "matchi-app-2026.firebaseapp.com",
+    projectId: "matchi-app-2026",
+    storageBucket: "matchi-app-2026.firebasestorage.app",
+    messagingSenderId: "746062206588",
+    appId: "1:746062206588:web:8b00218c60d944017bdbf9",
+    measurementId: "G-Z9017W0DP6"
+};
+
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+let currentUser = null;
+let selectedType = "MINI FOOT";
+let unsubscribeMatches = null;
 
 const city = document.getElementById("city");
 const district = document.getElementById("district");
 const matchesBox = document.getElementById("matches");
 const message = document.getElementById("message");
+const publishButton = document.getElementById("publish");
+
+
+function showMessage(text, success = false) {
+    message.textContent = text;
+    message.style.color = success ? "#48e889" : "#ff7777";
+}
+
+
+async function startApp() {
+
+    try {
+
+        const result = await signInAnonymously(auth);
+
+        currentUser = result.user;
+
+        document.getElementById("profile").textContent =
+            "👤 اللاعب " + currentUser.uid.substring(0, 6);
+
+        publishButton.disabled = false;
+        publishButton.textContent = "نشر الماتش ⚽";
+
+        displayMatches();
+
+    } catch (error) {
+
+        console.error(error);
+
+        document.getElementById("profile").textContent =
+            "خطأ في الاتصال";
+
+        matchesBox.innerHTML =
+            '<div class="empty">تعذر الاتصال. حاول تحديث الصفحة.</div>';
+
+        publishButton.textContent = "الاتصال غير متاح";
+
+    }
+
+}
+
 
 document.querySelectorAll(".type-card").forEach(card => {
 
@@ -364,91 +437,190 @@ document.querySelectorAll(".type-card").forEach(card => {
 
 });
 
+
 city.addEventListener("change", displayMatches);
-district.addEventListener("input", displayMatches);
+
 
 function displayMatches() {
 
+    if (!currentUser) return;
+
+    if (unsubscribeMatches) {
+        unsubscribeMatches();
+        unsubscribeMatches = null;
+    }
+
     const selectedCity = city.value;
-
-    const results = matches.filter(match => {
-
-        return match.city === selectedCity &&
-               match.type === selectedType;
-
-    });
 
     if (!selectedCity) {
 
         matchesBox.innerHTML =
-        '<div class="empty">📍 اختار المدينة باش تشوف الماتشات.</div>';
+            '<div class="empty">📍 اختار المدينة باش تشوف الماتشات.</div>';
 
         return;
 
     }
 
-    if (results.length === 0) {
+    matchesBox.innerHTML =
+        '<div class="empty">جاري تحميل المباريات...</div>';
 
-        matchesBox.innerHTML =
-        '<div class="empty">ما كاين حتى ماتش منشور دابا فهاد الاختيار.<br>كون أول واحد ينظم ماتش! ⚽</div>';
+    const q = query(
+        collection(db, "matches"),
+        where("city", "==", selectedCity),
+        where("type", "==", selectedType)
+    );
 
-        return;
+    unsubscribeMatches = onSnapshot(q, snapshot => {
 
-    }
+        matchesBox.innerHTML = "";
 
-    matchesBox.innerHTML = "";
+        if (snapshot.empty) {
 
-    results.forEach(match => {
+            matchesBox.innerHTML =
+                '<div class="empty">ما كاين حتى ماتش منشور دابا فهاد الاختيار.<br>كون أول واحد ينظم ماتش! ⚽</div>';
 
-        const card = document.createElement("div");
+            return;
 
-        card.className = "match-card";
+        }
 
-        const title = document.createElement("h3");
-        title.textContent = "⚽ " + match.type;
+        const matches = [];
 
-        const info = document.createElement("div");
-        info.className = "match-info";
+        snapshot.forEach(documentSnapshot => {
 
-        info.textContent =
-            "🏟️ الملعب: " + match.ground +
-            "\n📍 المدينة: " + match.city +
-            "\n🏘️ الحي: " + (match.district || "غير محدد") +
-            "\n📅 التاريخ: " + match.date +
-            "\n🕒 الوقت: " + match.time +
-            "\n👥 اللاعبين المتبقين: " + match.needed;
-
-        info.style.whiteSpace = "pre-line";
-
-        const join = document.createElement("button");
-
-        join.className = "join-btn";
-
-        join.textContent = match.needed > 0
-            ? "طلب الانضمام للماتش"
-            : "الماتش مكتمل";
-
-        join.disabled = match.needed <= 0;
-
-        join.addEventListener("click", () => {
-
-            alert(
-                "هاد النسخة تجريبية. الانضمام الحقيقي والتواصل بين اللاعبين غادي نفعّلوه ملي نربطو التطبيق بقاعدة البيانات."
-            );
+            matches.push({
+                id: documentSnapshot.id,
+                ...documentSnapshot.data()
+            });
 
         });
 
-        card.appendChild(title);
-        card.appendChild(info);
-        card.appendChild(join);
+        matches.sort((a, b) => {
 
-        matchesBox.appendChild(card);
+            const dateA = (a.date || "") + (a.time || "");
+            const dateB = (b.date || "") + (b.time || "");
+
+            return dateA.localeCompare(dateB);
+
+        });
+
+        matches.forEach(match => {
+
+            const card = document.createElement("div");
+            card.className = "match-card";
+
+            const title = document.createElement("h3");
+            title.textContent = "⚽ " + match.type;
+
+            const info = document.createElement("div");
+            info.className = "match-info";
+
+            info.textContent =
+                "🏟️ الملعب: " + match.ground +
+                "\n📍 المدينة: " + match.city +
+                "\n🏘️ الحي: " + (match.district || "غير محدد") +
+                "\n📅 التاريخ: " + match.date +
+                "\n🕒 الوقت: " + match.time +
+                "\n👥 اللاعبين المطلوبين: " + match.needed +
+                "\n📞 الهاتف: " + match.phone;
+
+            const join = document.createElement("button");
+            join.className = "join-btn";
+
+            const isOwner = match.createdBy === currentUser.uid;
+
+            join.textContent = isOwner
+                ? "أنت منظم هذا الماتش"
+                : "طلب الانضمام للماتش";
+
+            join.disabled = isOwner;
+
+            join.addEventListener("click", async () => {
+
+                if (join.disabled) return;
+
+                join.disabled = true;
+                join.textContent = "جاري إرسال الطلب...";
+
+                try {
+
+                    const requestRef = doc(
+                        db,
+                        "matches",
+                        match.id,
+                        "joinRequests",
+                        currentUser.uid
+                    );
+
+                    await setDoc(requestRef, {
+                        userId: currentUser.uid,
+                        createdAt: serverTimestamp()
+                    });
+
+                    join.textContent = "✅ تم إرسال طلب الانضمام";
+
+                } catch (error) {
+
+                    console.error(error);
+
+                    join.disabled = false;
+                    join.textContent = "طلب الانضمام للماتش";
+
+                    alert("وقع خطأ أثناء إرسال الطلب. حاول مرة أخرى.");
+
+                }
+
+            });
+
+            card.appendChild(title);
+            card.appendChild(info);
+            card.appendChild(join);
+
+            if (isOwner) {
+
+                const requests = document.createElement("p");
+                requests.className = "small";
+                requests.textContent = "جاري تحميل طلبات الانضمام...";
+
+                card.appendChild(requests);
+
+                getDocs(
+                    collection(db, "matches", match.id, "joinRequests")
+                ).then(result => {
+
+                    requests.textContent =
+                        "📩 طلبات الانضمام: " + result.size;
+
+                }).catch(error => {
+
+                    console.error(error);
+                    requests.textContent = "تعذر تحميل الطلبات.";
+
+                });
+
+            }
+
+            matchesBox.appendChild(card);
+
+        });
+
+    }, error => {
+
+        console.error(error);
+
+        matchesBox.innerHTML =
+            '<div class="empty">وقع خطأ في تحميل المباريات.</div>';
 
     });
 
 }
 
-document.getElementById("publish").addEventListener("click", function() {
+
+publishButton.addEventListener("click", async function() {
+
+    if (!currentUser) {
+        showMessage("⚠️ الحساب مازال ما واجدش.");
+        return;
+    }
 
     const ground = document.getElementById("ground").value.trim();
     const date = document.getElementById("date").value;
@@ -456,70 +628,80 @@ document.getElementById("publish").addEventListener("click", function() {
     const needed = Number(document.getElementById("needed").value);
     const phone = document.getElementById("phone").value.trim();
 
-    if (!city.value || !ground || !date || !time || !phone ||
-        !Number.isInteger(needed) || needed < 1 || needed > 100) {
+    if (
+        !city.value ||
+        !ground ||
+        !date ||
+        !time ||
+        !phone ||
+        !Number.isInteger(needed) ||
+        needed < 1 ||
+        needed > 100
+    ) {
 
-        message.textContent = "⚠️ عافاك عمر جميع المعلومات بطريقة صحيحة.";
-        message.style.color = "#ff7777";
-
+        showMessage("⚠️ عافاك عمر جميع المعلومات بطريقة صحيحة.");
         return;
 
     }
 
-    if (date < new Date().toLocaleDateString("en-CA")) {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+    const todayString = `${year}-${month}-${day}`;
 
-        message.textContent = "⚠️ اختار تاريخ اليوم أو تاريخ فالمستقبل.";
-        message.style.color = "#ff7777";
+    if (date < todayString) {
 
+        showMessage("⚠️ اختار تاريخ اليوم أو تاريخ فالمستقبل.");
         return;
 
     }
 
-    const match = {
-
-        id: Date.now(),
-        type: selectedType,
-        city: city.value,
-        district: district.value.trim(),
-        ground: ground,
-        date: date,
-        time: time,
-        needed: needed,
-        phone: phone
-
-    };
-
-    matches.unshift(match);
+    publishButton.disabled = true;
+    publishButton.textContent = "جاري النشر...";
 
     try {
 
-        localStorage.setItem("matchi_matches", JSON.stringify(matches));
+        await addDoc(collection(db, "matches"), {
 
-    } catch(e) {
+            type: selectedType,
+            city: city.value,
+            district: district.value.trim(),
+            ground: ground,
+            date: date,
+            time: time,
+            needed: needed,
+            phone: phone,
+            createdBy: currentUser.uid,
+            createdAt: serverTimestamp()
 
-        matches.shift();
+        });
 
-        message.textContent = "وقع مشكل فحفظ الماتش. حاول مرة أخرى.";
-        message.style.color = "#ff7777";
+        showMessage("✅ تنشر الماتش بنجاح!", true);
 
-        return;
+        document.getElementById("ground").value = "";
+        document.getElementById("date").value = "";
+        document.getElementById("time").value = "";
+        document.getElementById("needed").value = "";
+        document.getElementById("phone").value = "";
+
+        displayMatches();
+
+    } catch (error) {
+
+        console.error(error);
+
+        showMessage("❌ وقع خطأ في النشر: " + error.message);
 
     }
 
-    message.textContent = "✅ تنشر الماتش بنجاح!";
-    message.style.color = "#48e889";
-
-    document.getElementById("ground").value = "";
-    document.getElementById("date").value = "";
-    document.getElementById("time").value = "";
-    document.getElementById("needed").value = "";
-    document.getElementById("phone").value = "";
-
-    displayMatches();
+    publishButton.disabled = false;
+    publishButton.textContent = "نشر الماتش ⚽";
 
 });
 
-displayMatches();
+
+startApp();
 
 </script>
 
