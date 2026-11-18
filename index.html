@@ -1,770 +1,1236 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#08110d">
-<title>MATCHI - Play Football Together</title>
+<title>MATCHI - العب معانا</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:#08110d;color:white;direction:rtl}
-header{padding:18px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #203328;gap:10px}
-.logo{color:#35db79;font-size:27px;font-weight:900}
-.profile{background:#193626;padding:11px 14px;border-radius:30px;color:#62ed96;font-size:12px;border:none}
-.container{max-width:650px;margin:auto;padding:20px 16px}
-.hero{background:linear-gradient(135deg,#153e27,#081c12);padding:27px 20px;border-radius:20px;margin-bottom:25px;border:1px solid #245c39}
-.hero h1{font-size:27px;margin-bottom:12px}
-.hero p{color:#c3d8ca;line-height:1.7}
-.section-title{font-size:20px;margin-bottom:15px}
-.type-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:25px}
-.type-card{background:#111e16;border:2px solid #263b2e;border-radius:17px;padding:20px 10px;text-align:center;cursor:pointer;color:white}
-.type-card.active{border-color:#35db79;background:#173b25}
-.type-card .icon{font-size:38px;margin-bottom:10px}
-.type-card h3{color:#48e889;font-size:17px}
-.type-card p{color:#a5b9aa;font-size:12px;margin-top:8px}
-label{display:block;margin:14px 0 8px;color:#d9e8dd;font-size:14px}
-input,select{width:100%;padding:14px;border-radius:11px;border:1px solid #304638;background:#111e16;color:white;font-size:16px;outline:none}
-input:focus,select:focus{border-color:#35db79}
-button{cursor:pointer;font-size:15px}
-.main-btn{width:100%;background:#27c96a;color:#06130a;padding:15px;border:none;border-radius:12px;font-weight:bold;margin-top:18px}
-.main-btn:disabled{opacity:.5}
-.matches-section{margin-top:32px}
-.match-card{background:#111e16;border:1px solid #294232;border-radius:16px;padding:17px;margin-bottom:13px}
-.match-card h3{color:#54e88b;margin-bottom:12px}
-.match-info{color:#c4d2c8;font-size:14px;line-height:2;white-space:pre-line}
-.join-btn,.action-btn{width:100%;padding:12px;margin-top:12px;border:none;border-radius:10px;background:#214b30;color:#68ed98;font-weight:bold}
-.action-btn{width:auto;padding:10px 15px;margin:8px 4px 0 0}
-.reject{background:#482525;color:#ffaaaa}
-.accept{background:#205333;color:#75f0a0}
-.form-box{background:#101c14;border:1px solid #294232;border-radius:18px;padding:20px;margin-top:30px}
-.empty{color:#9caf9f;text-align:center;padding:25px 10px;background:#111e16;border-radius:13px;line-height:1.8}
-footer{text-align:center;color:#829487;padding:30px 10px;font-size:12px}
-.small{color:#9db2a2;font-size:12px;margin-top:8px;line-height:1.7}
-.request-box{border-top:1px solid #294232;margin-top:15px;padding-top:12px}
-.request-item{background:#1a2a20;padding:12px;border-radius:10px;margin-top:9px;font-size:13px;line-height:1.8}
-.status{color:#f2d477}
-.profile-panel{display:none;background:#101c14;border:1px solid #294232;border-radius:18px;padding:20px;margin:20px 0}
-.profile-panel h2{color:#54e88b;margin-bottom:15px}
-.profile-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}
-.stat{background:#1a2a20;border-radius:12px;padding:15px;text-align:center}
-.stat strong{display:block;color:#54e88b;font-size:25px;margin-bottom:5px}
-.stat span{font-size:12px;color:#b5c9ba}
-.profile-list{margin-top:20px}
-.profile-list h3{font-size:16px;color:#54e88b;margin-bottom:12px}
-.profile-item{background:#1a2a20;padding:13px;border-radius:11px;margin-bottom:9px;font-size:13px;line-height:1.9}
-.secondary-btn{width:100%;padding:12px;border:1px solid #355541;border-radius:10px;background:#192d20;color:#65e994;margin-top:10px}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#07140f;
+  color:white;
+  min-height:100vh;
+}
+
+header{
+  background:#0d241a;
+  padding:17px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid #1c4933;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.logo{
+  font-size:25px;
+  font-weight:bold;
+  color:#37e58b;
+}
+
+button{
+  border:0;
+  border-radius:10px;
+  padding:12px 16px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.profileBtn{
+  background:#173c29;
+  color:white;
+}
+
+.container{
+  width:100%;
+  max-width:850px;
+  margin:auto;
+  padding:18px;
+}
+
+.hero{
+  text-align:center;
+  padding:35px 10px;
+}
+
+.hero h1{
+  color:#37e58b;
+  font-size:32px;
+  margin-bottom:12px;
+}
+
+.hero p{
+  color:#b7c9bf;
+  line-height:1.8;
+}
+
+.card{
+  background:#10251a;
+  border:1px solid #244a34;
+  padding:18px;
+  border-radius:15px;
+  margin-bottom:18px;
+}
+
+.card h2{
+  color:#37e58b;
+  margin-bottom:16px;
+  font-size:21px;
+}
+
+input,select{
+  width:100%;
+  padding:13px;
+  border-radius:9px;
+  border:1px solid #345b43;
+  background:#091a11;
+  color:white;
+  margin-bottom:12px;
+  outline:none;
+  font-size:15px;
+}
+
+input:focus,select:focus{
+  border-color:#37e58b;
+}
+
+label{
+  display:block;
+  margin-bottom:7px;
+  color:#c6d8cd;
+  font-size:14px;
+}
+
+.greenBtn{
+  background:#24ce76;
+  color:#06150c;
+  width:100%;
+  font-size:16px;
+}
+
+.greenBtn:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+.secondaryBtn{
+  background:#234b34;
+  color:white;
+}
+
+.dangerBtn{
+  background:#8c3030;
+  color:white;
+}
+
+.match{
+  background:#10251a;
+  border:1px solid #28523a;
+  border-radius:14px;
+  padding:17px;
+  margin-bottom:15px;
+}
+
+.match h3{
+  color:#42e994;
+  font-size:20px;
+  margin-bottom:12px;
+}
+
+.match p{
+  color:#d1ded5;
+  margin:8px 0;
+  line-height:1.5;
+  font-size:14px;
+}
+
+.matchActions{
+  margin-top:14px;
+}
+
+.matchActions button{
+  margin:4px 0;
+}
+
+.badge{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:20px;
+  background:#1c5135;
+  color:#65efa5;
+  font-size:12px;
+  margin-bottom:10px;
+}
+
+.status{
+  color:#f3d77b;
+  font-size:13px;
+  margin-top:10px;
+  line-height:1.7;
+}
+
+.hidden{
+  display:none !important;
+}
+
+.sectionTitle{
+  margin:25px 0 15px;
+  color:#37e58b;
+}
+
+.tabs{
+  display:flex;
+  gap:8px;
+  margin-bottom:18px;
+}
+
+.tabs button{
+  flex:1;
+  background:#173b28;
+  color:white;
+}
+
+.tabs button.active{
+  background:#24ce76;
+  color:#06150c;
+}
+
+.infoBox{
+  background:#173c29;
+  padding:13px;
+  border-radius:10px;
+  margin-bottom:12px;
+  color:#c9e6d4;
+  line-height:1.7;
+}
+
+.requestItem{
+  background:#0a1b11;
+  padding:12px;
+  border-radius:10px;
+  margin-top:10px;
+  border:1px solid #294a35;
+}
+
+.requestItem p{
+  margin-bottom:9px;
+  line-height:1.6;
+}
+
+.requestItem button{
+  margin:3px;
+}
+
+footer{
+  text-align:center;
+  padding:25px;
+  color:#779384;
+  font-size:13px;
+}
+
+#loading{
+  text-align:center;
+  padding:20px;
+  color:#42e994;
+}
+
+.small{
+  color:#9eb5a6;
+  font-size:12px;
+  line-height:1.6;
+}
+
+@media(max-width:500px){
+  .hero h1{font-size:27px}
+  .container{padding:12px}
+  header{padding:13px}
+  .logo{font-size:22px}
+}
 </style>
 </head>
 
 <body>
 
 <header>
-<div class="logo">MATCHI ⚽</div>
-<button class="profile" id="profileButton">👤 حسابي</button>
+  <div class="logo">MATCHI ⚽</div>
+  <button class="profileBtn" onclick="toggleProfile()">👤 حسابي</button>
 </header>
 
 <div class="container">
 
-<div class="profile-panel" id="profilePanel">
+  <section class="hero">
+    <h1>لقا صحابك ولعب الكرة ⚽</h1>
+    <p>
+      قلب على ماتش قريب منك، أو نشر المباراة ديالك وخلي اللاعبين ينضمو ليك.
+      <br>
+      MATCHI - Find your team!
+    </p>
+  </section>
 
-<h2>👤 الملف الشخصي ديالك</h2>
-<p class="small">اختار الاسم اللي غادي يبان للاعبين الآخرين.</p>
+  <div id="loading">جاري الاتصال...</div>
 
-<label>اسم اللاعب</label>
-<input id="displayName" maxlength="25" placeholder="مثلاً: Soufiane">
+  <div id="mainApp" class="hidden">
 
-<button class="main-btn" id="saveProfile">حفظ المعلومات</button>
-<p class="small" id="profileMessage"></p>
+    <div class="card">
+      <h2>🔎 قلب على مباراة</h2>
 
-<div class="profile-stats">
-<div class="stat">
-<strong id="publishedCount">0</strong>
-<span>المباريات المنشورة</span>
-</div>
-<div class="stat">
-<strong id="acceptedCount">0</strong>
-<span>الطلبات المقبولة</span>
-</div>
-</div>
+      <label>المدينة</label>
+      <select id="filterCity">
+        <option value="">جميع المدن</option>
+      </select>
 
-<div class="profile-list">
-<h3>⚽ المباريات اللي نظمت</h3>
-<div id="myMatches">
-<div class="empty">جاري التحميل...</div>
-</div>
-</div>
+      <label>نوع المباراة</label>
+      <select id="filterType">
+        <option value="">جميع الأنواع</option>
+        <option value="MINI FOOT">MINI FOOT</option>
+        <option value="GRAND FOOT">GRAND FOOT</option>
+      </select>
 
-<div class="profile-list">
-<h3>📩 طلبات الانضمام ديالي</h3>
-<div id="myRequests">
-<div class="empty">جاري التحميل...</div>
-</div>
-</div>
+      <button class="greenBtn" onclick="applyFilters()">
+        بحث عن المباريات
+      </button>
+    </div>
 
-<button class="secondary-btn" id="closeProfile">إغلاق الملف الشخصي</button>
-</div>
+    <div class="card">
+      <h2>➕ نشر مباراة جديدة</h2>
 
-<div class="hero">
-<h1>لقا فين تلعب! ⚽</h1>
-<p>قلب على الماتشات القريبة منك، لقا لاعبين جداد، وكمل فريقك. الكرة كتجمعنا!</p>
-</div>
+      <label>نوع المباراة</label>
+      <select id="matchType">
+        <option value="MINI FOOT">MINI FOOT</option>
+        <option value="GRAND FOOT">GRAND FOOT</option>
+      </select>
 
-<h2 class="section-title">اختار نوع كرة القدم</h2>
+      <label>المدينة</label>
+      <select id="matchCity"></select>
 
-<div class="type-grid">
-<button class="type-card active" data-type="MINI FOOT">
-<div class="icon">⚽</div>
-<h3>MINI FOOT</h3>
-<p>ملاعب كرة القدم الصغيرة</p>
-</button>
+      <label>الحي أو المنطقة</label>
+      <input id="district" placeholder="مثلاً: حي السلام">
 
-<button class="type-card" data-type="GRAND FOOT">
-<div class="icon">🏟️</div>
-<h3>GRAND FOOT</h3>
-<p>ملاعب كرة القدم الكبيرة</p>
-</button>
-</div>
+      <label>اسم الملعب</label>
+      <input id="ground" placeholder="اسم الملعب">
 
-<h2 class="section-title">📍 اختار المدينة ديالك</h2>
+      <label>تاريخ المباراة</label>
+      <input id="matchDate" type="date">
 
-<select id="city">
-<option value="">اختار المدينة</option>
-<option>آسفي</option>
-<option>مراكش</option>
-<option>الدار البيضاء</option>
-<option>الرباط</option>
-<option>فاس</option>
-<option>طنجة</option>
-<option>أكادير</option>
-<option>الجديدة</option>
-<option>الصويرة</option>
-<option>القنيطرة</option>
-<option>بني ملال</option>
-<option>وجدة</option>
-<option>تطوان</option>
-<option>الناظور</option>
-<option>المحمدية</option>
-</select>
+      <label>وقت المباراة</label>
+      <input id="matchTime" type="time">
 
-<label>الحي (اختياري)</label>
-<input id="district" placeholder="مثلاً: حي السلام">
+      <label>شحال من لاعب باقي محتاج؟</label>
+      <input id="needed" type="number" min="1" max="100" placeholder="مثلاً: 4">
 
-<div class="matches-section">
-<h2 class="section-title">🔥 الماتشات المتاحة</h2>
-<div id="matches">
-<div class="empty">جاري تحميل المباريات...</div>
-</div>
-</div>
+      <label>رقم الهاتف للتواصل</label>
+      <input id="phone" type="tel" placeholder="06XXXXXXXX">
 
-<div class="form-box">
-<h2 class="section-title">➕ نظم ماتش جديد</h2>
+      <button class="greenBtn" onclick="publishMatch()" id="publishBtn">
+        نشر المباراة
+      </button>
 
-<label>اسم الملعب</label>
-<input id="ground" placeholder="اسم الملعب">
+      <p class="small" style="margin-top:10px">
+        تأكد من المعلومات قبل نشر المباراة.
+      </p>
+    </div>
 
-<label>تاريخ المباراة</label>
-<input id="date" type="date">
+    <h2 class="sectionTitle">🔥 المباريات المتوفرة</h2>
 
-<label>وقت المباراة</label>
-<input id="time" type="time">
+    <div id="matchesList">
+      <p class="small">جاري تحميل المباريات...</p>
+    </div>
 
-<label>عدد اللاعبين اللي باقي خاصينك</label>
-<input id="needed" type="number" min="1" max="100" placeholder="مثلاً: 4">
+  </div>
 
-<label>رقم الهاتف للتواصل</label>
-<input id="phone" type="tel" placeholder="رقم الهاتف">
+  <!-- PROFILE -->
 
-<button class="main-btn" id="publish" disabled>جاري الاتصال...</button>
-<p class="small" id="message"></p>
-</div>
+  <div id="profilePage" class="hidden">
+
+    <div class="card">
+      <h2>👤 الحساب الشخصي</h2>
+
+      <div class="infoBox">
+        مرحباً بك في MATCHI.
+        <br>
+        كمل المعلومات ديالك باش اللاعبين يعرفوك.
+      </div>
+
+      <label>الاسم ديالك</label>
+      <input id="profileName" maxlength="25" placeholder="مثلاً: Soufiane">
+
+      <button class="greenBtn" onclick="saveProfile()">
+        حفظ الاسم
+      </button>
+
+      <p id="profileMessage" class="status"></p>
+    </div>
+
+    <div class="card">
+      <h2>📊 إحصائيات الحساب</h2>
+      <div id="profileStats" class="infoBox">
+        جاري تحميل المعلومات...
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>⚽ المباريات ديالي</h2>
+      <div id="myMatches"></div>
+    </div>
+
+    <div class="card">
+      <h2>📩 طلبات الانضمام ديالي</h2>
+      <div id="myRequests"></div>
+    </div>
+
+    <button class="secondaryBtn" style="width:100%" onclick="toggleProfile()">
+      الرجوع للمباريات
+    </button>
+
+  </div>
 
 </div>
 
 <footer>
-MATCHI © 2026<br>
-PLAY TOGETHER. ENJOY FOOTBALL.
+  MATCHI ⚽ - Find Your Team
 </footer>
+
 
 <script type="module">
 
-import {initializeApp}
+import { initializeApp }
 from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
 
-import {getAuth,signInAnonymously}
+import {
+  getAuth,
+  signInAnonymously
+}
 from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
 
 import {
-getFirestore,collection,addDoc,doc,setDoc,getDoc,
-getDocs,query,where,onSnapshot,serverTimestamp,
-runTransaction
+  getFirestore,
+  collection,
+  doc,
+  setDoc,
+  getDoc,
+  addDoc,
+  updateDoc,
+  onSnapshot,
+  query,
+  orderBy,
+  serverTimestamp,
+  runTransaction,
+  getDocs,
+  where
 }
 from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
 
+
 const firebaseConfig = {
-apiKey:"AIzaSyB_1hDwkdhlzpeJlAQbcZznu_kFcu91f-0",
-authDomain:"matchi-app-2026.firebaseapp.com",
-projectId:"matchi-app-2026",
-storageBucket:"matchi-app-2026.firebasestorage.app",
-messagingSenderId:"746062206588",
-appId:"1:746062206588:web:8b00218c60d944017bdbf9",
-measurementId:"G-Z9017W0DP6"
+  apiKey:"AIzaSyB_1hDwkdhlzpeJlAQbcZznu_kFcu91f-0",
+  authDomain:"matchi-app-2026.firebaseapp.com",
+  projectId:"matchi-app-2026",
+  storageBucket:"matchi-app-2026.firebasestorage.app",
+  messagingSenderId:"746062206588",
+  appId:"1:746062206588:web:8b00218c60d944017bdbf9",
+  measurementId:"G-Z9017W0DP6"
 };
 
-const app=initializeApp(firebaseConfig);
-const auth=getAuth(app);
-const db=getFirestore(app);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-let currentUser=null;
-let selectedType="MINI FOOT";
-let unsubscribeMatches=null;
-let playerName="";
+let currentUser = null;
+let playerName = "لاعب";
+let allMatches = [];
+let unsubscribeMatches = null;
 
-const city=document.getElementById("city");
-const matchesBox=document.getElementById("matches");
-const message=document.getElementById("message");
-const publishButton=document.getElementById("publish");
+const cities = [
+  "آسفي",
+  "مراكش",
+  "الدار البيضاء",
+  "الرباط",
+  "فاس",
+  "طنجة",
+  "أكادير",
+  "الجديدة",
+  "الصويرة",
+  "القنيطرة",
+  "بني ملال",
+  "وجدة",
+  "تطوان",
+  "الناظور",
+  "المحمدية"
+];
 
-function showMessage(text,success=false){
-message.textContent=text;
-message.style.color=success?"#48e889":"#ff7777";
+function fillCities(){
+
+  const matchCity = document.getElementById("matchCity");
+  const filterCity = document.getElementById("filterCity");
+
+  cities.forEach(city => {
+
+    const option1 = document.createElement("option");
+    option1.value = city;
+    option1.textContent = city;
+    matchCity.appendChild(option1);
+
+    const option2 = document.createElement("option");
+    option2.value = city;
+    option2.textContent = city;
+    filterCity.appendChild(option2);
+
+  });
+
 }
 
-function profileMessage(text,success=false){
-const el=document.getElementById("profileMessage");
-el.textContent=text;
-el.style.color=success?"#48e889":"#ff7777";
+fillCities();
+
+
+function message(text){
+  alert(text);
 }
+
 
 async function startApp(){
-try{
-const result=await signInAnonymously(auth);
-currentUser=result.user;
-await loadPlayerProfile();
-publishButton.disabled=false;
-publishButton.textContent="نشر الماتش ⚽";
-displayMatches();
-}catch(error){
-console.error(error);
-document.getElementById("profileButton").textContent="خطأ في الاتصال";
-matchesBox.textContent="تعذر الاتصال. حاول تحديث الصفحة.";
-}
-}
 
-async function loadPlayerProfile(){
-const profileRef=doc(db,"profiles",currentUser.uid);
-const result=await getDoc(profileRef);
-if(result.exists()){
-playerName=result.data().displayName||"";
-}else{
-playerName="";
-}
-document.getElementById("displayName").value=playerName;
-updateProfileButton();
+  try{
+
+    const result = await signInAnonymously(auth);
+    currentUser = result.user;
+
+    await loadProfile();
+
+    document.getElementById("loading").classList.add("hidden");
+    document.getElementById("mainApp").classList.remove("hidden");
+
+    listenMatches();
+
+  }catch(error){
+
+    console.error(error);
+
+    document.getElementById("loading").textContent =
+      "وقع مشكل في الاتصال. تأكد من إعدادات Firebase وعاود المحاولة.";
+
+  }
+
 }
 
-function updateProfileButton(){
-document.getElementById("profileButton").textContent=
-playerName?"👤 "+playerName:"👤 حسابي";
+
+async function loadProfile(){
+
+  const profileRef = doc(db,"profiles",currentUser.uid);
+  const profileSnap = await getDoc(profileRef);
+
+  if(profileSnap.exists()){
+
+    playerName = profileSnap.data().displayName || "لاعب";
+
+  }else{
+
+    playerName = "لاعب";
+
+  }
+
+  document.getElementById("profileName").value = playerName;
+
 }
 
-document.getElementById("saveProfile").addEventListener("click",async()=>{
-if(!currentUser)return;
 
-const name=document.getElementById("displayName").value.trim();
+window.saveProfile = async function(){
 
-if(name.length<2||name.length>25){
-profileMessage("الاسم خاصو يكون بين 2 و25 حرف.");
-return;
+  const name = document.getElementById("profileName").value.trim();
+
+  if(name.length < 2 || name.length > 25){
+
+    message("الاسم خاصو يكون بين 2 و25 حرف.");
+    return;
+
+  }
+
+  try{
+
+    await setDoc(
+      doc(db,"profiles",currentUser.uid),
+      {displayName:name}
+    );
+
+    playerName = name;
+
+    document.getElementById("profileMessage").textContent =
+      "تم حفظ الاسم بنجاح ✅";
+
+    renderMatches(allMatches);
+
+  }catch(error){
+
+    console.error(error);
+    message("ما قدرناش نحفظو الاسم. عاود المحاولة.");
+
+  }
+
+};
+
+
+window.publishMatch = async function(){
+
+  const type = document.getElementById("matchType").value;
+  const city = document.getElementById("matchCity").value;
+  const district = document.getElementById("district").value.trim();
+  const ground = document.getElementById("ground").value.trim();
+  const date = document.getElementById("matchDate").value;
+  const time = document.getElementById("matchTime").value;
+  const needed = Number(document.getElementById("needed").value);
+  const phone = document.getElementById("phone").value.trim();
+
+  if(!ground || !date || !time || !phone || !needed){
+
+    message("عافاك عمر جميع المعلومات المطلوبة.");
+    return;
+
+  }
+
+  if(needed < 1 || needed > 100){
+
+    message("عدد اللاعبين خاصو يكون بين 1 و100.");
+    return;
+
+  }
+
+  if(date < new Date().toISOString().slice(0,10)){
+
+    message("ما يمكنش تختار تاريخ فات.");
+
+    return;
+
+  }
+
+  const btn = document.getElementById("publishBtn");
+  btn.disabled = true;
+  btn.textContent = "جاري النشر...";
+
+  try{
+
+    await addDoc(collection(db,"matches"),{
+
+      type:type,
+      city:city,
+      district:district,
+      ground:ground,
+      date:date,
+      time:time,
+      needed:needed,
+      phone:phone,
+      createdBy:currentUser.uid,
+      createdByName:playerName,
+      createdAt:serverTimestamp()
+
+    });
+
+    document.getElementById("ground").value = "";
+    document.getElementById("district").value = "";
+    document.getElementById("matchDate").value = "";
+    document.getElementById("matchTime").value = "";
+    document.getElementById("needed").value = "";
+    document.getElementById("phone").value = "";
+
+    message("تم نشر المباراة بنجاح! ⚽");
+
+  }catch(error){
+
+    console.error(error);
+    message("وقع مشكل أثناء نشر المباراة.");
+
+  }
+
+  btn.disabled = false;
+  btn.textContent = "نشر المباراة";
+
+};
+
+
+function listenMatches(){
+
+  if(unsubscribeMatches){
+    unsubscribeMatches();
+  }
+
+  const q = query(
+    collection(db,"matches"),
+    orderBy("createdAt","desc")
+  );
+
+  unsubscribeMatches = onSnapshot(q,(snapshot)=>{
+
+    allMatches = [];
+
+    snapshot.forEach(item=>{
+
+      allMatches.push({
+        id:item.id,
+        ...item.data()
+      });
+
+    });
+
+    renderMatches(allMatches);
+
+  },(error)=>{
+
+    console.error(error);
+
+    document.getElementById("matchesList").textContent =
+      "تعذر تحميل المباريات.";
+
+  });
+
 }
 
-const button=document.getElementById("saveProfile");
-button.disabled=true;
-button.textContent="جاري الحفظ...";
 
-try{
-await setDoc(doc(db,"profiles",currentUser.uid),{
-displayName:name
-});
+window.applyFilters = function(){
 
-playerName=name;
-updateProfileButton();
-profileMessage("✅ تم حفظ الاسم بنجاح!",true);
+  const city = document.getElementById("filterCity").value;
+  const type = document.getElementById("filterType").value;
 
-}catch(error){
-console.error(error);
-profileMessage("وقع خطأ أثناء الحفظ: "+error.message);
+  let filtered = allMatches;
+
+  if(city){
+    filtered = filtered.filter(m=>m.city === city);
+  }
+
+  if(type){
+    filtered = filtered.filter(m=>m.type === type);
+  }
+
+  renderMatches(filtered);
+
+};
+
+
+function renderMatches(matches){
+
+  const list = document.getElementById("matchesList");
+
+  list.innerHTML = "";
+
+  if(matches.length === 0){
+
+    list.innerHTML =
+      '<div class="infoBox">ما كايناش مباريات متوفرة حالياً.</div>';
+
+    return;
+
+  }
+
+  matches.forEach(match=>{
+
+    const card = document.createElement("div");
+    card.className = "match";
+
+    const title = document.createElement("h3");
+    title.textContent = "⚽ " + match.type;
+
+    const badge = document.createElement("span");
+    badge.className = "badge";
+    badge.textContent = match.city;
+
+    const details = document.createElement("div");
+
+    const fields = [
+      ["👤 المنظم",match.createdByName || "لاعب"],
+      ["📍 المدينة",match.city],
+      ["🏘️ الحي",match.district || "غير محدد"],
+      ["🏟️ الملعب",match.ground],
+      ["📅 التاريخ",match.date],
+      ["⏰ الساعة",match.time],
+      ["👥 اللاعبين المطلوبين",match.needed]
+    ];
+
+    fields.forEach(([label,value])=>{
+
+      const p = document.createElement("p");
+      p.textContent = label + ": " + (value ?? "");
+      details.appendChild(p);
+
+    });
+
+    const actions = document.createElement("div");
+    actions.className = "matchActions";
+
+    if(match.createdBy === currentUser.uid){
+
+      const own = document.createElement("p");
+      own.className = "status";
+      own.textContent = "هاد المباراة ديالك.";
+
+      actions.appendChild(own);
+
+      const requestsBtn = document.createElement("button");
+      requestsBtn.className = "secondaryBtn";
+      requestsBtn.textContent = "📩 طلبات الانضمام";
+
+      requestsBtn.onclick = ()=>showJoinRequests(match.id);
+
+      actions.appendChild(requestsBtn);
+
+    }else{
+
+      const joinBtn = document.createElement("button");
+      joinBtn.className = "greenBtn";
+      joinBtn.textContent = "طلب الانضمام";
+
+      joinBtn.onclick = ()=>sendJoinRequest(match.id,joinBtn);
+
+      actions.appendChild(joinBtn);
+
+    }
+
+    card.appendChild(title);
+    card.appendChild(badge);
+    card.appendChild(details);
+    card.appendChild(actions);
+
+    list.appendChild(card);
+
+  });
+
 }
 
-button.disabled=false;
-button.textContent="حفظ المعلومات";
-});
 
-document.getElementById("profileButton").addEventListener("click",async()=>{
-const panel=document.getElementById("profilePanel");
-panel.style.display=panel.style.display==="block"?"none":"block";
+async function sendJoinRequest(matchId,button){
 
-if(panel.style.display==="block"){
-await loadProfileDashboard();
-panel.scrollIntoView({behavior:"smooth"});
+  if(!playerName || playerName === "لاعب"){
+
+    message("دخل الاسم ديالك أولاً من الحساب الشخصي.");
+    return;
+
+  }
+
+  button.disabled = true;
+  button.textContent = "جاري إرسال الطلب...";
+
+  try{
+
+    const matchRef = doc(db,"matches",matchId);
+    const matchSnap = await getDoc(matchRef);
+
+    if(!matchSnap.exists()){
+
+      message("هاد المباراة ما بقاتش موجودة.");
+      button.disabled = false;
+      button.textContent = "طلب الانضمام";
+      return;
+
+    }
+
+    const matchData = matchSnap.data();
+
+    if(matchData.needed <= 0){
+
+      message("سمح لينا، المباراة عامرة.");
+      button.disabled = false;
+      button.textContent = "المباراة عامرة";
+      return;
+
+    }
+
+    const requestRef = doc(
+      db,
+      "matches",
+      matchId,
+      "joinRequests",
+      currentUser.uid
+    );
+
+    const existing = await getDoc(requestRef);
+
+    if(existing.exists()){
+
+      message("سبق ليك صيفطتي طلب لهاد المباراة.");
+
+      button.disabled = false;
+      button.textContent = "تم إرسال الطلب";
+
+      return;
+
+    }
+
+    await setDoc(requestRef,{
+
+      userId:currentUser.uid,
+      displayName:playerName,
+      status:"pending",
+      createdAt:serverTimestamp()
+
+    });
+
+    message("تم إرسال طلب الانضمام بنجاح ✅");
+
+    button.textContent = "تم إرسال الطلب";
+
+  }catch(error){
+
+    console.error(error);
+
+    message("ما قدرناش نصيفطو الطلب. عاود المحاولة.");
+
+    button.disabled = false;
+    button.textContent = "طلب الانضمام";
+
+  }
+
 }
-});
 
-document.getElementById("closeProfile").addEventListener("click",()=>{
-document.getElementById("profilePanel").style.display="none";
-});
+
+window.showJoinRequests = async function(matchId){
+
+  try{
+
+    const requestsRef = collection(
+      db,
+      "matches",
+      matchId,
+      "joinRequests"
+    );
+
+    const snapshot = await getDocs(requestsRef);
+
+    const match = allMatches.find(m=>m.id === matchId);
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "card";
+
+    const heading = document.createElement("h2");
+    heading.textContent = "📩 طلبات الانضمام";
+    wrapper.appendChild(heading);
+
+    if(snapshot.empty){
+
+      const empty = document.createElement("p");
+      empty.textContent = "ما كاين حتى طلب حالياً.";
+      wrapper.appendChild(empty);
+
+    }
+
+    for(const requestDoc of snapshot.docs){
+
+      const request = requestDoc.data();
+
+      let displayName = request.displayName;
+
+      // محاولة جلب اسم اللاعب للطلبات القديمة
+      if(!displayName && request.userId){
+
+        try{
+
+          const profileSnap = await getDoc(
+            doc(db,"profiles",request.userId)
+          );
+
+          if(profileSnap.exists()){
+            displayName = profileSnap.data().displayName;
+          }
+
+        }catch(error){
+          console.log(error);
+        }
+
+      }
+
+      displayName = displayName ||
+        (request.userId ? request.userId.substring(0,8) : "لاعب");
+
+      const item = document.createElement("div");
+      item.className = "requestItem";
+
+      const p = document.createElement("p");
+      p.textContent =
+        "👤 اللاعب: " + displayName +
+        " — الحالة: " + translateStatus(request.status);
+
+      item.appendChild(p);
+
+      if(request.status === "pending"){
+
+        const accept = document.createElement("button");
+        accept.className = "greenBtn";
+        accept.textContent = "قبول";
+
+        accept.onclick = ()=>updateRequestStatus(
+          matchId,
+          request.userId,
+          "accepted"
+        );
+
+        const reject = document.createElement("button");
+        reject.className = "dangerBtn";
+        reject.textContent = "رفض";
+
+        reject.onclick = ()=>updateRequestStatus(
+          matchId,
+          request.userId,
+          "rejected"
+        );
+
+        item.appendChild(accept);
+        item.appendChild(reject);
+
+      }
+
+      wrapper.appendChild(item);
+
+    }
+
+    const close = document.createElement("button");
+    close.className = "secondaryBtn";
+    close.style.width = "100%";
+    close.style.marginTop = "15px";
+    close.textContent = "إغلاق";
+
+    close.onclick = ()=>wrapper.remove();
+
+    wrapper.appendChild(close);
+
+    document.querySelector(".container").prepend(wrapper);
+
+  }catch(error){
+
+    console.error(error);
+    message("تعذر تحميل الطلبات.");
+
+  }
+
+};
+
+
+async function updateRequestStatus(matchId,userId,status){
+
+  if(!userId){
+    message("معلومات اللاعب غير متوفرة.");
+    return;
+  }
+
+  try{
+
+    const matchRef = doc(db,"matches",matchId);
+
+    const requestRef = doc(
+      db,
+      "matches",
+      matchId,
+      "joinRequests",
+      userId
+    );
+
+    await runTransaction(db,async(transaction)=>{
+
+      const matchSnap = await transaction.get(matchRef);
+      const requestSnap = await transaction.get(requestRef);
+
+      if(!matchSnap.exists() || !requestSnap.exists()){
+
+        throw new Error("المباراة أو الطلب غير موجود.");
+
+      }
+
+      const matchData = matchSnap.data();
+      const requestData = requestSnap.data();
+
+      if(matchData.createdBy !== currentUser.uid){
+
+        throw new Error("ما عندكش الصلاحية.");
+
+      }
+
+      if(requestData.status !== "pending"){
+
+        throw new Error("هاد الطلب تمت معالجته من قبل.");
+
+      }
+
+      if(status === "accepted"){
+
+        if(matchData.needed <= 0){
+
+          throw new Error("ما بقاوش الأماكن متوفرة.");
+
+        }
+
+        transaction.update(matchRef,{
+          needed:matchData.needed - 1
+        });
+
+      }
+
+      transaction.update(requestRef,{
+        status:status
+      });
+
+    });
+
+    message(
+      status === "accepted"
+      ? "تم قبول اللاعب بنجاح ✅"
+      : "تم رفض الطلب."
+    );
+
+    showJoinRequests(matchId);
+
+  }catch(error){
+
+    console.error(error);
+    message(error.message || "وقع خطأ أثناء تحديث الطلب.");
+
+  }
+
+}
+
+
+function translateStatus(status){
+
+  if(status === "pending") return "في الانتظار";
+  if(status === "accepted") return "مقبول";
+  if(status === "rejected") return "مرفوض";
+
+  return status || "غير معروف";
+
+}
+
+
+window.toggleProfile = async function(){
+
+  const main = document.getElementById("mainApp");
+  const profile = document.getElementById("profilePage");
+
+  const showing = !profile.classList.contains("hidden");
+
+  if(showing){
+
+    profile.classList.add("hidden");
+    main.classList.remove("hidden");
+
+  }else{
+
+    main.classList.add("hidden");
+    profile.classList.remove("hidden");
+
+    await loadProfile();
+    await loadProfileDashboard();
+
+  }
+
+};
+
 
 async function loadProfileDashboard(){
-if(!currentUser)return;
 
-const myMatches=document.getElementById("myMatches");
-const myRequests=document.getElementById("myRequests");
+  const myMatches = document.getElementById("myMatches");
+  const myRequests = document.getElementById("myRequests");
+  const stats = document.getElementById("profileStats");
 
-myMatches.innerHTML='<div class="empty">جاري تحميل المباريات...</div>';
-myRequests.innerHTML='<div class="empty">جاري تحميل الطلبات...</div>';
+  myMatches.innerHTML = "";
+  myRequests.innerHTML = "";
 
-try{
-const snapshot=await getDocs(collection(db,"matches"));
+  const ownMatches = allMatches.filter(
+    match=>match.createdBy === currentUser.uid
+  );
 
-const published=[];
-const requests=[];
-let accepted=0;
-const tasks=[];
+  let requestCount = 0;
+  let acceptedCount = 0;
 
-snapshot.forEach(matchDoc=>{
-const match={id:matchDoc.id,...matchDoc.data()};
+  for(const match of allMatches){
 
-if(match.createdBy===currentUser.uid){
-published.push(match);
+    try{
+
+      const requestRef = doc(
+        db,
+        "matches",
+        match.id,
+        "joinRequests",
+        currentUser.uid
+      );
+
+      const requestSnap = await getDoc(requestRef);
+
+      if(requestSnap.exists()){
+
+        const request = requestSnap.data();
+
+        requestCount++;
+
+        if(request.status === "accepted"){
+          acceptedCount++;
+        }
+
+        const item = document.createElement("div");
+        item.className = "requestItem";
+
+        const p = document.createElement("p");
+
+        p.textContent =
+          "⚽ " + match.type +
+          " — " + match.city +
+          " — الحالة: " + translateStatus(request.status);
+
+        item.appendChild(p);
+        myRequests.appendChild(item);
+
+      }
+
+    }catch(error){
+
+      console.log(error);
+
+    }
+
+  }
+
+  stats.textContent =
+    "المباريات المنشورة: " + ownMatches.length +
+    " | طلبات الانضمام: " + requestCount +
+    " | الطلبات المقبولة: " + acceptedCount;
+
+  if(ownMatches.length === 0){
+
+    myMatches.textContent = "ما نشرتي حتى مباراة دابا.";
+
+  }else{
+
+    ownMatches.forEach(match=>{
+
+      const item = document.createElement("div");
+      item.className = "requestItem";
+
+      const p = document.createElement("p");
+
+      p.textContent =
+        match.type + " — " + match.city +
+        " — " + match.date + " " + match.time;
+
+      item.appendChild(p);
+      myMatches.appendChild(item);
+
+    });
+
+  }
+
+  if(requestCount === 0){
+
+    myRequests.textContent = "ما عندك حتى طلب انضمام دابا.";
+
+  }
+
 }
 
-tasks.push(
-getDoc(doc(db,"matches",match.id,"joinRequests",currentUser.uid))
-.then(result=>{
-if(result.exists()){
-const request=result.data();
-requests.push({match,status:request.status});
-if(request.status==="accepted")accepted++;
-}
-})
-.catch(error=>console.error("Request read error:",error))
-);
-});
-
-await Promise.all(tasks);
-
-document.getElementById("publishedCount").textContent=published.length;
-document.getElementById("acceptedCount").textContent=accepted;
-
-myMatches.innerHTML="";
-
-if(published.length===0){
-myMatches.innerHTML='<div class="empty">ما نشرتي حتى ماتش دابا.</div>';
-}else{
-published.sort((a,b)=>(b.date+b.time).localeCompare(a.date+a.time));
-
-published.forEach(match=>{
-const item=document.createElement("div");
-item.className="profile-item";
-item.textContent=
-"⚽ "+match.type+
-"\n🏟️ "+match.ground+
-"\n📍 "+match.city+
-"\n📅 "+match.date+" — "+match.time+
-"\n👥 الأماكن المتبقية: "+match.needed;
-myMatches.appendChild(item);
-});
-}
-
-myRequests.innerHTML="";
-
-if(requests.length===0){
-myRequests.innerHTML='<div class="empty">ما صيفطتي حتى طلب انضمام دابا.</div>';
-}else{
-requests.sort((a,b)=>
-(b.match.date+b.match.time).localeCompare(a.match.date+a.match.time)
-);
-
-requests.forEach(entry=>{
-const item=document.createElement("div");
-item.className="profile-item";
-
-const status=
-entry.status==="accepted"?"✅ تم قبولك":
-entry.status==="rejected"?"❌ تم رفض طلبك":
-"⏳ الطلب مازال في الانتظار";
-
-item.textContent=
-"⚽ "+entry.match.type+
-"\n🏟️ "+entry.match.ground+
-"\n📍 "+entry.match.city+
-"\n📅 "+entry.match.date+" — "+entry.match.time+
-"\nالحالة: "+status;
-
-myRequests.appendChild(item);
-});
-}
-
-}catch(error){
-console.error(error);
-myMatches.innerHTML='<div class="empty">تعذر تحميل المباريات.</div>';
-myRequests.innerHTML='<div class="empty">تعذر تحميل الطلبات.</div>';
-}
-}
-
-document.querySelectorAll(".type-card").forEach(card=>{
-card.addEventListener("click",()=>{
-document.querySelectorAll(".type-card").forEach(c=>c.classList.remove("active"));
-card.classList.add("active");
-selectedType=card.dataset.type;
-displayMatches();
-});
-});
-
-city.addEventListener("change",displayMatches);
-
-function displayMatches(){
-if(!currentUser)return;
-
-if(unsubscribeMatches){
-unsubscribeMatches();
-unsubscribeMatches=null;
-}
-
-if(!city.value){
-matchesBox.innerHTML='<div class="empty">📍 اختار المدينة باش تشوف الماتشات.</div>';
-return;
-}
-
-matchesBox.innerHTML='<div class="empty">جاري تحميل المباريات...</div>';
-
-const q=query(
-collection(db,"matches"),
-where("city","==",city.value),
-where("type","==",selectedType)
-);
-
-unsubscribeMatches=onSnapshot(q,snapshot=>{
-matchesBox.innerHTML="";
-
-if(snapshot.empty){
-matchesBox.innerHTML='<div class="empty">ما كاين حتى ماتش منشور دابا فهاد الاختيار.<br>كون أول واحد ينظم ماتش! ⚽</div>';
-return;
-}
-
-const matches=[];
-snapshot.forEach(d=>matches.push({id:d.id,...d.data()}));
-matches.sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
-
-matches.forEach(match=>{
-const card=document.createElement("div");
-card.className="match-card";
-
-const title=document.createElement("h3");
-title.textContent="⚽ "+match.type;
-
-const info=document.createElement("div");
-info.className="match-info";
-info.textContent=
-"🏟️ الملعب: "+match.ground+
-"\n📍 المدينة: "+match.city+
-"\n🏘️ الحي: "+(match.district||"غير محدد")+
-"\n📅 التاريخ: "+match.date+
-"\n🕒 الوقت: "+match.time+
-"\n👥 الأماكن المتبقية: "+match.needed+
-"\n📞 الهاتف: "+match.phone;
-
-card.append(title,info);
-
-if(match.createdBy===currentUser.uid){
-const ownerLabel=document.createElement("p");
-ownerLabel.className="small";
-ownerLabel.textContent="⭐ أنت منظم هذا الماتش";
-card.appendChild(ownerLabel);
-showJoinRequests(card,match);
-}else{
-const join=document.createElement("button");
-join.className="join-btn";
-
-if(match.needed<=0){
-join.textContent="اكتمل الفريق";
-join.disabled=true;
-}else{
-join.textContent="طلب الانضمام للماتش";
-}
-
-join.addEventListener("click",()=>sendJoinRequest(join,match));
-card.appendChild(join);
-showMyRequestStatus(card,match);
-}
-
-matchesBox.appendChild(card);
-});
-
-},error=>{
-console.error(error);
-matchesBox.innerHTML='<div class="empty">وقع خطأ في تحميل المباريات.</div>';
-});
-}
-
-async function sendJoinRequest(button,match){
-if(button.disabled)return;
-
-button.disabled=true;
-button.textContent="جاري إرسال الطلب...";
-
-try{
-const requestRef=doc(db,"matches",match.id,"joinRequests",currentUser.uid);
-const existing=await getDoc(requestRef);
-
-if(existing.exists()){
-const status=existing.data().status;
-button.textContent=
-status==="accepted"?"✅ تم قبولك":
-status==="rejected"?"❌ تم رفض طلبك":
-"⏳ طلبك قيد الانتظار";
-return;
-}
-
-if(match.needed<=0){
-button.textContent="اكتمل الفريق";
-return;
-}
-
-await setDoc(requestRef,{
-userId:currentUser.uid,
-status:"pending",
-createdAt:serverTimestamp()
-});
-
-button.textContent="✅ تم إرسال الطلب";
-
-}catch(error){
-console.error(error);
-button.disabled=false;
-button.textContent="طلب الانضمام للماتش";
-alert("تعذر إرسال الطلب. حاول مرة أخرى.");
-}
-}
-
-async function showMyRequestStatus(card,match){
-try{
-const requestRef=doc(db,"matches",match.id,"joinRequests",currentUser.uid);
-const result=await getDoc(requestRef);
-if(!result.exists())return;
-
-const status=result.data().status;
-const p=document.createElement("p");
-p.className="small status";
-
-p.textContent=
-status==="accepted"?"✅ المنظم قبل طلبك!":
-status==="rejected"?"❌ المنظم رفض طلبك.":
-"⏳ طلبك مازال كيتسنى موافقة المنظم.";
-
-card.appendChild(p);
-}catch(error){
-console.error(error);
-}
-}
-
-async function showJoinRequests(card,match){
-const box=document.createElement("div");
-box.className="request-box";
-
-const heading=document.createElement("h3");
-heading.textContent="📩 طلبات الانضمام";
-box.appendChild(heading);
-
-const list=document.createElement("div");
-list.className="small";
-list.textContent="جاري تحميل الطلبات...";
-box.appendChild(list);
-card.appendChild(box);
-
-try{
-const snapshot=await getDocs(
-collection(db,"matches",match.id,"joinRequests")
-);
-
-list.innerHTML="";
-
-if(snapshot.empty){
-list.textContent="ما توصلتي حتى طلب دابا.";
-return;
-}
-
-snapshot.forEach(requestDoc=>{
-const request=requestDoc.data();
-const item=document.createElement("div");
-item.className="request-item";
-
-const description=document.createElement("p");
-description.textContent=
-"👤 لاعب: "+request.userId.substring(0,8)+
-" — الحالة: "+(
-request.status==="accepted"?"مقبول":
-request.status==="rejected"?"مرفوض":"في الانتظار"
-);
-
-item.appendChild(description);
-
-if(request.status==="pending"){
-const accept=document.createElement("button");
-accept.className="action-btn accept";
-accept.textContent="✅ قبول";
-
-const reject=document.createElement("button");
-reject.className="action-btn reject";
-reject.textContent="❌ رفض";
-
-accept.addEventListener("click",async()=>{
-accept.disabled=true;
-reject.disabled=true;
-await handleRequest(match.id,requestDoc.id,"accepted");
-});
-
-reject.addEventListener("click",async()=>{
-accept.disabled=true;
-reject.disabled=true;
-await handleRequest(match.id,requestDoc.id,"rejected");
-});
-
-item.append(accept,reject);
-}
-
-list.appendChild(item);
-});
-
-}catch(error){
-console.error(error);
-list.textContent="تعذر تحميل الطلبات.";
-}
-}
-
-async function handleRequest(matchId,userId,newStatus){
-try{
-const matchRef=doc(db,"matches",matchId);
-const requestRef=doc(db,"matches",matchId,"joinRequests",userId);
-
-await runTransaction(db,async(transaction)=>{
-const matchSnap=await transaction.get(matchRef);
-const requestSnap=await transaction.get(requestRef);
-
-if(!matchSnap.exists()||!requestSnap.exists()){
-throw new Error("المباراة أو الطلب غير موجود.");
-}
-
-const matchData=matchSnap.data();
-const requestData=requestSnap.data();
-
-if(matchData.createdBy!==currentUser.uid){
-throw new Error("غير مسموح لك.");
-}
-
-if(requestData.status!=="pending"){
-throw new Error("تمت معالجة هذا الطلب من قبل.");
-}
-
-if(newStatus==="accepted"){
-if(matchData.needed<=0){
-throw new Error("ما بقا حتى مكان متاح.");
-}
-
-transaction.update(matchRef,{
-needed:matchData.needed-1
-});
-}
-
-transaction.update(requestRef,{
-status:newStatus
-});
-});
-
-alert(newStatus==="accepted"?"✅ تم قبول اللاعب!":"تم رفض الطلب.");
-
-displayMatches();
-
-if(document.getElementById("profilePanel").style.display==="block"){
-loadProfileDashboard();
-}
-
-}catch(error){
-console.error(error);
-alert("ما قدرناش نعالجو الطلب: "+error.message);
-}
-}
-
-publishButton.addEventListener("click",async()=>{
-if(!currentUser){
-showMessage("الحساب مازال ما واجدش.");
-return;
-}
-
-const ground=document.getElementById("ground").value.trim();
-const date=document.getElementById("date").value;
-const time=document.getElementById("time").value;
-const needed=Number(document.getElementById("needed").value);
-const phone=document.getElementById("phone").value.trim();
-
-if(!city.value||!ground||!date||!time||!phone||
-!Number.isInteger(needed)||needed<1||needed>100){
-showMessage("⚠️ عافاك عمر جميع المعلومات بطريقة صحيحة.");
-return;
-}
-
-const now=new Date();
-const today=[
-now.getFullYear(),
-String(now.getMonth()+1).padStart(2,"0"),
-String(now.getDate()).padStart(2,"0")
-].join("-");
-
-if(date<today){
-showMessage("اختار تاريخ اليوم أو تاريخ فالمستقبل.");
-return;
-}
-
-publishButton.disabled=true;
-publishButton.textContent="جاري النشر...";
-
-try{
-await addDoc(collection(db,"matches"),{
-type:selectedType,
-city:city.value,
-district:document.getElementById("district").value.trim(),
-ground,
-date,
-time,
-needed,
-phone,
-createdBy:currentUser.uid,
-createdAt:serverTimestamp()
-});
-
-showMessage("✅ تنشر الماتش بنجاح!",true);
-
-["ground","date","time","needed","phone"].forEach(id=>{
-document.getElementById(id).value="";
-});
-
-displayMatches();
-
-if(document.getElementById("profilePanel").style.display==="block"){
-loadProfileDashboard();
-}
-
-}catch(error){
-console.error(error);
-showMessage("❌ وقع خطأ: "+error.message);
-}
-
-publishButton.disabled=false;
-publishButton.textContent="نشر الماتش ⚽";
-});
 
 startApp();
 
 </script>
+
 </body>
 </html>
