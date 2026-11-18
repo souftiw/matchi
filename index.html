@@ -9,9 +9,9 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial,sans-serif;background:#08110d;color:white;direction:rtl}
-header{padding:22px 18px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #203328}
+header{padding:18px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #203328;gap:10px}
 .logo{color:#35db79;font-size:27px;font-weight:900}
-.profile{background:#193626;padding:10px 14px;border-radius:30px;color:#62ed96;font-size:12px}
+.profile{background:#193626;padding:11px 14px;border-radius:30px;color:#62ed96;font-size:12px;border:none}
 .container{max-width:650px;margin:auto;padding:20px 16px}
 .hero{background:linear-gradient(135deg,#153e27,#081c12);padding:27px 20px;border-radius:20px;margin-bottom:25px;border:1px solid #245c39}
 .hero h1{font-size:27px;margin-bottom:12px}
@@ -44,6 +44,16 @@ footer{text-align:center;color:#829487;padding:30px 10px;font-size:12px}
 .request-box{border-top:1px solid #294232;margin-top:15px;padding-top:12px}
 .request-item{background:#1a2a20;padding:12px;border-radius:10px;margin-top:9px;font-size:13px;line-height:1.8}
 .status{color:#f2d477}
+.profile-panel{display:none;background:#101c14;border:1px solid #294232;border-radius:18px;padding:20px;margin:20px 0}
+.profile-panel h2{color:#54e88b;margin-bottom:15px}
+.profile-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}
+.stat{background:#1a2a20;border-radius:12px;padding:15px;text-align:center}
+.stat strong{display:block;color:#54e88b;font-size:25px;margin-bottom:5px}
+.stat span{font-size:12px;color:#b5c9ba}
+.profile-list{margin-top:20px}
+.profile-list h3{font-size:16px;color:#54e88b;margin-bottom:12px}
+.profile-item{background:#1a2a20;padding:13px;border-radius:11px;margin-bottom:9px;font-size:13px;line-height:1.9}
+.secondary-btn{width:100%;padding:12px;border:1px solid #355541;border-radius:10px;background:#192d20;color:#65e994;margin-top:10px}
 </style>
 </head>
 
@@ -51,10 +61,49 @@ footer{text-align:center;color:#829487;padding:30px 10px;font-size:12px}
 
 <header>
 <div class="logo">MATCHI ⚽</div>
-<div class="profile" id="profile">جاري الاتصال...</div>
+<button class="profile" id="profileButton">👤 حسابي</button>
 </header>
 
 <div class="container">
+
+<div class="profile-panel" id="profilePanel">
+
+<h2>👤 الملف الشخصي ديالك</h2>
+<p class="small">اختار الاسم اللي غادي يبان للاعبين الآخرين.</p>
+
+<label>اسم اللاعب</label>
+<input id="displayName" maxlength="25" placeholder="مثلاً: Soufiane">
+
+<button class="main-btn" id="saveProfile">حفظ المعلومات</button>
+<p class="small" id="profileMessage"></p>
+
+<div class="profile-stats">
+<div class="stat">
+<strong id="publishedCount">0</strong>
+<span>المباريات المنشورة</span>
+</div>
+<div class="stat">
+<strong id="acceptedCount">0</strong>
+<span>الطلبات المقبولة</span>
+</div>
+</div>
+
+<div class="profile-list">
+<h3>⚽ المباريات اللي نظمت</h3>
+<div id="myMatches">
+<div class="empty">جاري التحميل...</div>
+</div>
+</div>
+
+<div class="profile-list">
+<h3>📩 طلبات الانضمام ديالي</h3>
+<div id="myRequests">
+<div class="empty">جاري التحميل...</div>
+</div>
+</div>
+
+<button class="secondary-btn" id="closeProfile">إغلاق الملف الشخصي</button>
+</div>
 
 <div class="hero">
 <h1>لقا فين تلعب! ⚽</h1>
@@ -148,7 +197,7 @@ from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
 import {
 getFirestore,collection,addDoc,doc,setDoc,getDoc,
 getDocs,query,where,onSnapshot,serverTimestamp,
-updateDoc,runTransaction
+runTransaction
 }
 from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
 
@@ -169,6 +218,7 @@ const db=getFirestore(app);
 let currentUser=null;
 let selectedType="MINI FOOT";
 let unsubscribeMatches=null;
+let playerName="";
 
 const city=document.getElementById("city");
 const matchesBox=document.getElementById("matches");
@@ -180,23 +230,185 @@ message.textContent=text;
 message.style.color=success?"#48e889":"#ff7777";
 }
 
+function profileMessage(text,success=false){
+const el=document.getElementById("profileMessage");
+el.textContent=text;
+el.style.color=success?"#48e889":"#ff7777";
+}
+
 async function startApp(){
 try{
 const result=await signInAnonymously(auth);
 currentUser=result.user;
-
-document.getElementById("profile").textContent=
-"👤 اللاعب "+currentUser.uid.substring(0,6);
-
+await loadPlayerProfile();
 publishButton.disabled=false;
 publishButton.textContent="نشر الماتش ⚽";
-
 displayMatches();
+}catch(error){
+console.error(error);
+document.getElementById("profileButton").textContent="خطأ في الاتصال";
+matchesBox.textContent="تعذر الاتصال. حاول تحديث الصفحة.";
+}
+}
+
+async function loadPlayerProfile(){
+const profileRef=doc(db,"profiles",currentUser.uid);
+const result=await getDoc(profileRef);
+if(result.exists()){
+playerName=result.data().displayName||"";
+}else{
+playerName="";
+}
+document.getElementById("displayName").value=playerName;
+updateProfileButton();
+}
+
+function updateProfileButton(){
+document.getElementById("profileButton").textContent=
+playerName?"👤 "+playerName:"👤 حسابي";
+}
+
+document.getElementById("saveProfile").addEventListener("click",async()=>{
+if(!currentUser)return;
+
+const name=document.getElementById("displayName").value.trim();
+
+if(name.length<2||name.length>25){
+profileMessage("الاسم خاصو يكون بين 2 و25 حرف.");
+return;
+}
+
+const button=document.getElementById("saveProfile");
+button.disabled=true;
+button.textContent="جاري الحفظ...";
+
+try{
+await setDoc(doc(db,"profiles",currentUser.uid),{
+displayName:name
+});
+
+playerName=name;
+updateProfileButton();
+profileMessage("✅ تم حفظ الاسم بنجاح!",true);
 
 }catch(error){
 console.error(error);
-document.getElementById("profile").textContent="خطأ في الاتصال";
-matchesBox.textContent="تعذر الاتصال. حاول تحديث الصفحة.";
+profileMessage("وقع خطأ أثناء الحفظ: "+error.message);
+}
+
+button.disabled=false;
+button.textContent="حفظ المعلومات";
+});
+
+document.getElementById("profileButton").addEventListener("click",async()=>{
+const panel=document.getElementById("profilePanel");
+panel.style.display=panel.style.display==="block"?"none":"block";
+
+if(panel.style.display==="block"){
+await loadProfileDashboard();
+panel.scrollIntoView({behavior:"smooth"});
+}
+});
+
+document.getElementById("closeProfile").addEventListener("click",()=>{
+document.getElementById("profilePanel").style.display="none";
+});
+
+async function loadProfileDashboard(){
+if(!currentUser)return;
+
+const myMatches=document.getElementById("myMatches");
+const myRequests=document.getElementById("myRequests");
+
+myMatches.innerHTML='<div class="empty">جاري تحميل المباريات...</div>';
+myRequests.innerHTML='<div class="empty">جاري تحميل الطلبات...</div>';
+
+try{
+const snapshot=await getDocs(collection(db,"matches"));
+
+const published=[];
+const requests=[];
+let accepted=0;
+const tasks=[];
+
+snapshot.forEach(matchDoc=>{
+const match={id:matchDoc.id,...matchDoc.data()};
+
+if(match.createdBy===currentUser.uid){
+published.push(match);
+}
+
+tasks.push(
+getDoc(doc(db,"matches",match.id,"joinRequests",currentUser.uid))
+.then(result=>{
+if(result.exists()){
+const request=result.data();
+requests.push({match,status:request.status});
+if(request.status==="accepted")accepted++;
+}
+})
+.catch(error=>console.error("Request read error:",error))
+);
+});
+
+await Promise.all(tasks);
+
+document.getElementById("publishedCount").textContent=published.length;
+document.getElementById("acceptedCount").textContent=accepted;
+
+myMatches.innerHTML="";
+
+if(published.length===0){
+myMatches.innerHTML='<div class="empty">ما نشرتي حتى ماتش دابا.</div>';
+}else{
+published.sort((a,b)=>(b.date+b.time).localeCompare(a.date+a.time));
+
+published.forEach(match=>{
+const item=document.createElement("div");
+item.className="profile-item";
+item.textContent=
+"⚽ "+match.type+
+"\n🏟️ "+match.ground+
+"\n📍 "+match.city+
+"\n📅 "+match.date+" — "+match.time+
+"\n👥 الأماكن المتبقية: "+match.needed;
+myMatches.appendChild(item);
+});
+}
+
+myRequests.innerHTML="";
+
+if(requests.length===0){
+myRequests.innerHTML='<div class="empty">ما صيفطتي حتى طلب انضمام دابا.</div>';
+}else{
+requests.sort((a,b)=>
+(b.match.date+b.match.time).localeCompare(a.match.date+a.match.time)
+);
+
+requests.forEach(entry=>{
+const item=document.createElement("div");
+item.className="profile-item";
+
+const status=
+entry.status==="accepted"?"✅ تم قبولك":
+entry.status==="rejected"?"❌ تم رفض طلبك":
+"⏳ الطلب مازال في الانتظار";
+
+item.textContent=
+"⚽ "+entry.match.type+
+"\n🏟️ "+entry.match.ground+
+"\n📍 "+entry.match.city+
+"\n📅 "+entry.match.date+" — "+entry.match.time+
+"\nالحالة: "+status;
+
+myRequests.appendChild(item);
+});
+}
+
+}catch(error){
+console.error(error);
+myMatches.innerHTML='<div class="empty">تعذر تحميل المباريات.</div>';
+myRequests.innerHTML='<div class="empty">تعذر تحميل الطلبات.</div>';
 }
 }
 
@@ -212,7 +424,6 @@ displayMatches();
 city.addEventListener("change",displayMatches);
 
 function displayMatches(){
-
 if(!currentUser)return;
 
 if(unsubscribeMatches){
@@ -234,7 +445,6 @@ where("type","==",selectedType)
 );
 
 unsubscribeMatches=onSnapshot(q,snapshot=>{
-
 matchesBox.innerHTML="";
 
 if(snapshot.empty){
@@ -244,11 +454,9 @@ return;
 
 const matches=[];
 snapshot.forEach(d=>matches.push({id:d.id,...d.data()}));
-
 matches.sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
 
 matches.forEach(match=>{
-
 const card=document.createElement("div");
 card.className="match-card";
 
@@ -287,41 +495,34 @@ join.textContent="طلب الانضمام للماتش";
 
 join.addEventListener("click",()=>sendJoinRequest(join,match));
 card.appendChild(join);
-
 showMyRequestStatus(card,match);
 }
 
 matchesBox.appendChild(card);
-
 });
 
 },error=>{
 console.error(error);
 matchesBox.innerHTML='<div class="empty">وقع خطأ في تحميل المباريات.</div>';
 });
-
 }
 
 async function sendJoinRequest(button,match){
-
 if(button.disabled)return;
 
 button.disabled=true;
 button.textContent="جاري إرسال الطلب...";
 
 try{
-
 const requestRef=doc(db,"matches",match.id,"joinRequests",currentUser.uid);
 const existing=await getDoc(requestRef);
 
 if(existing.exists()){
 const status=existing.data().status;
-
 button.textContent=
 status==="accepted"?"✅ تم قبولك":
 status==="rejected"?"❌ تم رفض طلبك":
 "⏳ طلبك قيد الانتظار";
-
 return;
 }
 
@@ -344,20 +545,15 @@ button.disabled=false;
 button.textContent="طلب الانضمام للماتش";
 alert("تعذر إرسال الطلب. حاول مرة أخرى.");
 }
-
 }
 
 async function showMyRequestStatus(card,match){
-
 try{
-
 const requestRef=doc(db,"matches",match.id,"joinRequests",currentUser.uid);
 const result=await getDoc(requestRef);
-
 if(!result.exists())return;
 
 const status=result.data().status;
-
 const p=document.createElement("p");
 p.className="small status";
 
@@ -367,15 +563,12 @@ status==="rejected"?"❌ المنظم رفض طلبك.":
 "⏳ طلبك مازال كيتسنى موافقة المنظم.";
 
 card.appendChild(p);
-
 }catch(error){
 console.error(error);
 }
-
 }
 
 async function showJoinRequests(card,match){
-
 const box=document.createElement("div");
 box.className="request-box";
 
@@ -387,11 +580,9 @@ const list=document.createElement("div");
 list.className="small";
 list.textContent="جاري تحميل الطلبات...";
 box.appendChild(list);
-
 card.appendChild(box);
 
 try{
-
 const snapshot=await getDocs(
 collection(db,"matches",match.id,"joinRequests")
 );
@@ -404,14 +595,13 @@ return;
 }
 
 snapshot.forEach(requestDoc=>{
-
 const request=requestDoc.data();
-
 const item=document.createElement("div");
 item.className="request-item";
 
 const description=document.createElement("p");
-description.textContent="👤 لاعب: "+request.userId.substring(0,8)+
+description.textContent=
+"👤 لاعب: "+request.userId.substring(0,8)+
 " — الحالة: "+(
 request.status==="accepted"?"مقبول":
 request.status==="rejected"?"مرفوض":"في الانتظار"
@@ -420,7 +610,6 @@ request.status==="rejected"?"مرفوض":"في الانتظار"
 item.appendChild(description);
 
 if(request.status==="pending"){
-
 const accept=document.createElement("button");
 accept.className="action-btn accept";
 accept.textContent="✅ قبول";
@@ -442,29 +631,23 @@ await handleRequest(match.id,requestDoc.id,"rejected");
 });
 
 item.append(accept,reject);
-
 }
 
 list.appendChild(item);
-
 });
 
 }catch(error){
 console.error(error);
 list.textContent="تعذر تحميل الطلبات.";
 }
-
 }
 
 async function handleRequest(matchId,userId,newStatus){
-
 try{
-
 const matchRef=doc(db,"matches",matchId);
 const requestRef=doc(db,"matches",matchId,"joinRequests",userId);
 
 await runTransaction(db,async(transaction)=>{
-
 const matchSnap=await transaction.get(matchRef);
 const requestSnap=await transaction.get(requestRef);
 
@@ -484,7 +667,6 @@ throw new Error("تمت معالجة هذا الطلب من قبل.");
 }
 
 if(newStatus==="accepted"){
-
 if(matchData.needed<=0){
 throw new Error("ما بقا حتى مكان متاح.");
 }
@@ -492,26 +674,28 @@ throw new Error("ما بقا حتى مكان متاح.");
 transaction.update(matchRef,{
 needed:matchData.needed-1
 });
-
 }
 
 transaction.update(requestRef,{
 status:newStatus
 });
-
 });
 
 alert(newStatus==="accepted"?"✅ تم قبول اللاعب!":"تم رفض الطلب.");
+
+displayMatches();
+
+if(document.getElementById("profilePanel").style.display==="block"){
+loadProfileDashboard();
+}
 
 }catch(error){
 console.error(error);
 alert("ما قدرناش نعالجو الطلب: "+error.message);
 }
-
 }
 
 publishButton.addEventListener("click",async()=>{
-
 if(!currentUser){
 showMessage("الحساب مازال ما واجدش.");
 return;
@@ -545,7 +729,6 @@ publishButton.disabled=true;
 publishButton.textContent="جاري النشر...";
 
 try{
-
 await addDoc(collection(db,"matches"),{
 type:selectedType,
 city:city.value,
@@ -567,6 +750,10 @@ document.getElementById(id).value="";
 
 displayMatches();
 
+if(document.getElementById("profilePanel").style.display==="block"){
+loadProfileDashboard();
+}
+
 }catch(error){
 console.error(error);
 showMessage("❌ وقع خطأ: "+error.message);
@@ -574,7 +761,6 @@ showMessage("❌ وقع خطأ: "+error.message);
 
 publishButton.disabled=false;
 publishButton.textContent="نشر الماتش ⚽";
-
 });
 
 startApp();
