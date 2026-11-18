@@ -7,293 +7,286 @@
 
 <style>
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:Arial,sans-serif;
+box-sizing:border-box;
+margin:0;
+padding:0;
+font-family:Arial,sans-serif;
 }
 
 body{
-  background:#07140f;
-  color:white;
-  min-height:100vh;
+background:#07140f;
+color:white;
+min-height:100vh;
 }
 
 header{
-  background:#0d2419;
-  padding:20px;
-  text-align:center;
-  border-bottom:2px solid #19c879;
+background:#0d2419;
+padding:22px;
+text-align:center;
+border-bottom:2px solid #19c879;
 }
 
 header h1{
-  color:#19e68b;
-  font-size:32px;
+color:#19e68b;
+font-size:34px;
 }
 
 header p{
-  color:#b9d7c8;
-  margin-top:8px;
+color:#b9d7c8;
+margin-top:8px;
 }
 
 .container{
-  width:92%;
-  max-width:650px;
-  margin:20px auto;
+width:92%;
+max-width:650px;
+margin:20px auto;
 }
 
 .card{
-  background:#10251b;
-  padding:18px;
-  border-radius:15px;
-  margin-bottom:18px;
-  border:1px solid #214a35;
+background:#10251b;
+padding:18px;
+border-radius:15px;
+margin-bottom:18px;
+border:1px solid #214a35;
 }
 
 h2{
-  color:#21e68c;
-  margin-bottom:15px;
-  font-size:21px;
+color:#21e68c;
+margin-bottom:15px;
+font-size:21px;
 }
 
 input,select{
-  width:100%;
-  padding:13px;
-  margin:7px 0;
-  border-radius:9px;
-  border:1px solid #315b43;
-  background:#071a11;
-  color:white;
-  font-size:15px;
+width:100%;
+padding:13px;
+margin:7px 0;
+border-radius:9px;
+border:1px solid #315b43;
+background:#071a11;
+color:white;
+font-size:15px;
 }
 
 button{
-  width:100%;
-  padding:13px;
-  margin-top:10px;
-  border:none;
-  border-radius:9px;
-  background:#16c875;
-  color:#06150d;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
+width:100%;
+padding:13px;
+margin-top:10px;
+border:none;
+border-radius:9px;
+background:#16c875;
+color:#06150d;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
 }
 
 button:disabled{
-  opacity:.5;
-  cursor:not-allowed;
+opacity:.5;
 }
 
 .secondary{
-  background:#244c35;
-  color:white;
+background:#244c35;
+color:white;
 }
 
 .danger{
-  background:#a52e36;
-  color:white;
-}
-
-.success{
-  background:#176e42;
-  color:white;
+background:#a52e36;
+color:white;
 }
 
 .match{
-  background:#091b12;
-  border:1px solid #285b3c;
-  border-radius:12px;
-  padding:15px;
-  margin-top:12px;
+background:#091b12;
+border:1px solid #285b3c;
+border-radius:12px;
+padding:15px;
+margin-top:12px;
 }
 
 .match h3{
-  color:#27e995;
-  margin-bottom:10px;
+color:#27e995;
+margin-bottom:10px;
 }
 
 .match p{
-  margin:7px 0;
-  color:#d4e8dc;
-  font-size:14px;
+margin:8px 0;
+color:#d4e8dc;
+font-size:14px;
 }
 
 .badge{
-  display:inline-block;
-  padding:5px 10px;
-  border-radius:20px;
-  background:#155b37;
-  color:#65ffad;
-  margin-bottom:10px;
-  font-size:12px;
+display:inline-block;
+padding:5px 10px;
+border-radius:20px;
+background:#155b37;
+color:#65ffad;
+margin-bottom:10px;
+font-size:12px;
 }
 
 .small{
-  font-size:12px;
-  color:#a6c4b1;
-  margin-top:8px;
+font-size:12px;
+color:#a6c4b1;
+margin-top:8px;
 }
 
 .notice{
-  padding:12px;
-  background:#173c29;
-  border-radius:9px;
-  margin-bottom:12px;
-  display:none;
-}
-
-hr{
-  border:0;
-  border-top:1px solid #31513d;
-  margin:15px 0;
+padding:12px;
+background:#173c29;
+border-radius:9px;
+margin-bottom:12px;
+display:none;
 }
 
 .empty{
-  text-align:center;
-  padding:20px;
-  color:#9cb7a6;
+text-align:center;
+padding:20px;
+color:#9cb7a6;
 }
 
 footer{
-  text-align:center;
-  padding:25px;
-  color:#829b8b;
-  font-size:13px;
+text-align:center;
+padding:25px;
+color:#829b8b;
+font-size:13px;
 }
+
 </style>
 </head>
 
 <body>
 
 <header>
-  <h1>⚽ MATCHI</h1>
-  <p>لقا اللاعبين ولعب الماتش ديالك!</p>
+<h1>⚽ MATCHI</h1>
+<p>لقا اللاعبين ولعب الماتش ديالك!</p>
 </header>
 
 <div class="container">
 
-  <div id="notice" class="notice"></div>
+<div id="notice" class="notice"></div>
 
-  <div class="card">
-    <h2>👤 مرحبا بك في MATCHI</h2>
-    <p>نظم مباراة ديالك أو انضم لمباراة أخرى.</p>
-    <p class="small" id="userStatus">جاري الاتصال...</p>
-  </div>
+<div class="card">
+<h2>👤 مرحبا بك في MATCHI</h2>
+<p>نظم مباراة ديالك أو انضم لمباراة أخرى.</p>
+<p class="small" id="userStatus">جاري الاتصال...</p>
+</div>
 
-  <div class="card">
-    <h2>🔎 قلب على مباراة</h2>
+<div class="card">
 
-    <select id="filterType">
-      <option value="">جميع أنواع الكرة</option>
-      <option value="MINI FOOT">MINI FOOT</option>
-      <option value="GRAND FOOT">GRAND FOOT</option>
-    </select>
+<h2>🔎 قلب على مباراة</h2>
 
-    <select id="filterCity">
-      <option value="">جميع المدن</option>
-      <option>الدار البيضاء</option>
-      <option>الرباط</option>
-      <option>مراكش</option>
-      <option>آسفي</option>
-      <option>أكادير</option>
-      <option>طنجة</option>
-      <option>فاس</option>
-      <option>مكناس</option>
-      <option>الجديدة</option>
-      <option>القنيطرة</option>
-      <option>وجدة</option>
-      <option>تطوان</option>
-      <option>الناظور</option>
-      <option>بني ملال</option>
-      <option>خريبكة</option>
-      <option>العيون</option>
-      <option>الداخلة</option>
-      <option>الصويرة</option>
-      <option>القصر الكبير</option>
-      <option>سلا</option>
-    </select>
+<select id="filterType">
+<option value="">جميع الأنواع</option>
+<option value="MINI FOOT">MINI FOOT</option>
+<option value="GRAND FOOT">GRAND FOOT</option>
+</select>
 
-    <button onclick="applyFilters()">بحث عن المباريات</button>
-    <button class="secondary" onclick="resetFilters()">عرض جميع المباريات</button>
-  </div>
+<select id="filterCity">
+<option value="">جميع المدن</option>
+<option>الدار البيضاء</option>
+<option>الرباط</option>
+<option>مراكش</option>
+<option>آسفي</option>
+<option>أكادير</option>
+<option>طنجة</option>
+<option>فاس</option>
+<option>مكناس</option>
+<option>الجديدة</option>
+<option>القنيطرة</option>
+<option>وجدة</option>
+<option>تطوان</option>
+<option>الناظور</option>
+<option>بني ملال</option>
+<option>خريبكة</option>
+<option>العيون</option>
+<option>الداخلة</option>
+<option>الصويرة</option>
+<option>سلا</option>
+</select>
 
-  <div class="card">
-    <h2>➕ نشر مباراة جديدة</h2>
+<button onclick="applyFilters()">بحث</button>
+<button class="secondary" onclick="resetFilters()">عرض جميع المباريات</button>
 
-    <input id="playerName" placeholder="الاسم ديالك">
+</div>
 
-    <select id="matchType">
-      <option value="MINI FOOT">MINI FOOT</option>
-      <option value="GRAND FOOT">GRAND FOOT</option>
-    </select>
+<div class="card">
 
-    <select id="city">
-      <option value="">اختار المدينة</option>
-      <option>الدار البيضاء</option>
-      <option>الرباط</option>
-      <option>مراكش</option>
-      <option>آسفي</option>
-      <option>أكادير</option>
-      <option>طنجة</option>
-      <option>فاس</option>
-      <option>مكناس</option>
-      <option>الجديدة</option>
-      <option>القنيطرة</option>
-      <option>وجدة</option>
-      <option>تطوان</option>
-      <option>الناظور</option>
-      <option>بني ملال</option>
-      <option>خريبكة</option>
-      <option>العيون</option>
-      <option>الداخلة</option>
-      <option>الصويرة</option>
-      <option>القصر الكبير</option>
-      <option>سلا</option>
-    </select>
+<h2>➕ نشر مباراة جديدة</h2>
 
-    <input id="neighborhood" placeholder="الحي أو المنطقة">
+<input id="playerName" placeholder="الاسم ديالك">
 
-    <input id="matchDate" type="date">
+<select id="matchType">
+<option value="MINI FOOT">MINI FOOT</option>
+<option value="GRAND FOOT">GRAND FOOT</option>
+</select>
 
-    <input id="matchTime" type="time">
+<select id="city">
+<option value="">اختار المدينة</option>
+<option>الدار البيضاء</option>
+<option>الرباط</option>
+<option>مراكش</option>
+<option>آسفي</option>
+<option>أكادير</option>
+<option>طنجة</option>
+<option>فاس</option>
+<option>مكناس</option>
+<option>الجديدة</option>
+<option>القنيطرة</option>
+<option>وجدة</option>
+<option>تطوان</option>
+<option>الناظور</option>
+<option>بني ملال</option>
+<option>خريبكة</option>
+<option>العيون</option>
+<option>الداخلة</option>
+<option>الصويرة</option>
+<option>سلا</option>
+</select>
 
-    <input id="maxPlayers" type="number" min="2" max="100"
-    placeholder="عدد اللاعبين المطلوب">
+<input id="district" placeholder="الحي أو المنطقة">
 
-    <input id="phone" type="tel" placeholder="رقم الهاتف">
+<input id="ground" placeholder="اسم الملعب">
 
-    <button id="publishBtn" onclick="publishMatch()">
-      نشر المباراة ⚽
-    </button>
-  </div>
+<input id="matchDate" type="date">
 
-  <div class="card">
-    <h2>⚽ المباريات المتاحة</h2>
-    <div id="matches">
-      <div class="empty">جاري تحميل المباريات...</div>
-    </div>
-  </div>
+<input id="matchTime" type="time">
 
-  <div class="card">
-    <h2>📩 طلبات الانضمام ديالي</h2>
-    <div id="myRequests">
-      <div class="empty">جاري التحميل...</div>
-    </div>
-  </div>
+<input id="needed" type="number" min="1" max="100"
+placeholder="شحال من لاعب باقي محتاج؟">
 
-  <div class="card">
-    <h2>📋 طلبات اللاعبين للمباريات ديالي</h2>
-    <div id="incomingRequests">
-      <div class="empty">لا توجد طلبات حاليا.</div>
-    </div>
-  </div>
+<input id="phone" type="tel" placeholder="رقم الهاتف">
+
+<button id="publishBtn" onclick="publishMatch()">
+نشر المباراة ⚽
+</button>
+
+</div>
+
+<div class="card">
+<h2>⚽ المباريات المتاحة</h2>
+<div id="matches">
+<div class="empty">جاري تحميل المباريات...</div>
+</div>
+</div>
+
+<div class="card">
+<h2>📩 طلبات الانضمام ديالي</h2>
+<div id="myRequests">
+<div class="empty">جاري التحميل...</div>
+</div>
+</div>
+
+<div class="card">
+<h2>📋 طلبات اللاعبين للمباريات ديالي</h2>
+<div id="incomingRequests">
+<div class="empty">جاري التحميل...</div>
+</div>
+</div>
 
 </div>
 
 <footer>
-  MATCHI © 2026<br>
-  العب معانا، وخلي الماتش يجمعنا ❤️
+MATCHI © 2026<br>
+العب معانا، وخلي الماتش يجمعنا ❤️
 </footer>
 
 <script type="module">
@@ -302,36 +295,37 @@ import { initializeApp }
 from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
 
 import {
-  getAuth,
-  signInAnonymously,
-  onAuthStateChanged
+getAuth,
+signInAnonymously,
+onAuthStateChanged
 }
 from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
 
 import {
-  getFirestore,
-  collection,
-  addDoc,
-  doc,
-  getDoc,
-  updateDoc,
-  onSnapshot,
-  query,
-  where,
-  serverTimestamp,
-  runTransaction
+getFirestore,
+collection,
+doc,
+getDoc,
+setDoc,
+addDoc,
+updateDoc,
+onSnapshot,
+query,
+where,
+serverTimestamp,
+runTransaction
 }
 from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB_1hDwkdhlzpeJlAQbcZznu_kFcu91f-",
-  authDomain: "matchi-app-2026.firebaseapp.com",
-  projectId: "matchi-app-2026",
-  storageBucket: "matchi-app-2026.firebasestorage.app",
-  messagingSenderId: "746062206588",
-  appId: "1:746062206588:web:8b00218c60d944017bdbf9",
-  measurementId: "G-Z9017W0DP6"
+apiKey: "AIzaSyB_1hDwkdhlzpeJlAQbcZznu_kFcu91f-0",
+authDomain: "matchi-app-2026.firebaseapp.com",
+projectId: "matchi-app-2026",
+storageBucket: "matchi-app-2026.firebasestorage.app",
+messagingSenderId: "746062206588",
+appId: "1:746062206588:web:8b00218c60d944017bdbf9",
+measurementId: "G-Z9017W0DP6"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -340,660 +334,710 @@ const db = getFirestore(app);
 
 let currentUser = null;
 let allMatches = [];
-let unsubscribeMatches = null;
-let unsubscribeMyRequests = null;
-let unsubscribeIncoming = null;
+
+let unsubMatches = null;
+let unsubMyRequests = null;
+let unsubIncoming = null;
 
 const $ = id => document.getElementById(id);
 
+
 function notify(message){
-  const box = $("notice");
-  box.style.display = "block";
-  box.textContent = message;
 
-  window.scrollTo({top:0,behavior:"smooth"});
+const box=$("notice");
 
-  setTimeout(()=>{
-    box.style.display="none";
-  },5000);
+box.style.display="block";
+box.textContent=message;
+
+window.scrollTo({top:0,behavior:"smooth"});
+
+setTimeout(()=>{
+box.style.display="none";
+},5000);
+
 }
+
 
 function escapeHTML(value){
-  return String(value ?? "").replace(/[&<>"']/g, c => ({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#039;"
-  })[c]);
+
+return String(value ?? "").replace(/[&<>"']/g,c=>({
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+})[c]);
+
 }
 
 
-// تسجيل الدخول المجهول
+// AUTHENTICATION
 
-onAuthStateChanged(auth, async user => {
+onAuthStateChanged(auth,async user=>{
 
-  if(user){
+if(!user){
 
-    currentUser = user;
+$("userStatus").textContent="جاري تسجيل الدخول...";
 
-    $("userStatus").textContent =
-      "متصل بـ MATCHI ✅";
+return;
 
-    listenMatches();
-    listenMyRequests();
-    listenIncomingRequests();
+}
 
-  }else{
+currentUser=user;
 
-    $("userStatus").textContent =
-      "جاري تسجيل الدخول...";
+$("userStatus").textContent="متصل بـ MATCHI ✅";
 
-  }
+listenMatches();
+listenMyRequests();
+listenIncomingRequests();
+
+try{
+
+const profileRef=doc(db,"profiles",user.uid);
+const profileSnap=await getDoc(profileRef);
+
+if(profileSnap.exists()){
+
+$("playerName").value=
+profileSnap.data().displayName || "";
+
+}
+
+}catch(error){
+
+console.error("Profile:",error);
+
+}
 
 });
+
+if(!auth.currentUser){
 
 signInAnonymously(auth).catch(error=>{
-  console.error(error);
-  notify("تعذر تسجيل الدخول. حاول مرة أخرى.");
+
+console.error(error);
+
+$("userStatus").textContent=
+"تعذر تسجيل الدخول: "+error.message;
+
 });
 
+}
 
-// نشر مباراة
 
-window.publishMatch = async function(){
+// SAVE PROFILE
 
-  if(!currentUser){
-    notify("انتظر حتى يتم الاتصال.");
-    return;
-  }
+async function saveProfile(name){
 
-  const name = $("playerName").value.trim();
-  const type = $("matchType").value;
-  const city = $("city").value;
-  const neighborhood = $("neighborhood").value.trim();
-  const date = $("matchDate").value;
-  const time = $("matchTime").value;
-  const maxPlayers = Number($("maxPlayers").value);
-  const phone = $("phone").value.trim();
+const profileRef=doc(db,"profiles",currentUser.uid);
 
-  if(!name || !city || !date || !time ||
-     !maxPlayers || !phone){
+await setDoc(profileRef,{
+displayName:name
+});
 
-    notify("عمر جميع المعلومات المطلوبة.");
-    return;
-  }
+}
 
-  if(maxPlayers < 2 || maxPlayers > 100){
-    notify("عدد اللاعبين يجب أن يكون بين 2 و100.");
-    return;
-  }
 
-  if(date < new Date().toLocaleDateString("en-CA")){
-    notify("اختار تاريخا صحيحا.");
-    return;
-  }
+// PUBLISH MATCH
 
-  $("publishBtn").disabled = true;
+window.publishMatch=async function(){
 
-  try{
+if(!currentUser){
 
-    await addDoc(collection(db,"matches"),{
+notify("انتظر تسجيل الدخول.");
 
-      ownerId:currentUser.uid,
+return;
 
-      playerName:name,
-      type:type,
-      city:city,
-      neighborhood:neighborhood,
+}
 
-      date:date,
-      time:time,
+const name=$("playerName").value.trim();
+const type=$("matchType").value;
+const city=$("city").value;
+const district=$("district").value.trim();
+const ground=$("ground").value.trim();
+const date=$("matchDate").value;
+const time=$("matchTime").value;
+const needed=Number($("needed").value);
+const phone=$("phone").value.trim();
 
-      maxPlayers:maxPlayers,
-      currentPlayers:1,
+if(!name || !city || !district || !ground ||
+!date || !time || !phone || !needed){
 
-      phone:phone,
+notify("عمر جميع المعلومات.");
 
-      status:"open",
+return;
 
-      createdAt:serverTimestamp()
+}
 
-    });
+if(needed<1 || needed>100 || !Number.isInteger(needed)){
 
-    $("playerName").value="";
-    $("neighborhood").value="";
-    $("matchDate").value="";
-    $("matchTime").value="";
-    $("maxPlayers").value="";
-    $("phone").value="";
+notify("عدد اللاعبين يجب أن يكون بين 1 و100.");
 
-    notify("تم نشر المباراة بنجاح! ⚽");
+return;
 
-  }catch(error){
+}
 
-    console.error(error);
-    notify("وقع خطأ أثناء نشر المباراة.");
+if(date<new Date().toLocaleDateString("en-CA")){
 
-  }
+notify("اختار تاريخ صحيح.");
 
-  $("publishBtn").disabled = false;
+return;
+
+}
+
+$("publishBtn").disabled=true;
+
+try{
+
+await saveProfile(name);
+
+await addDoc(collection(db,"matches"),{
+
+type:type,
+city:city,
+district:district,
+ground:ground,
+date:date,
+time:time,
+needed:needed,
+phone:phone,
+
+createdBy:currentUser.uid,
+createdByName:name,
+
+isClosed:false,
+
+createdAt:serverTimestamp()
+
+});
+
+$("district").value="";
+$("ground").value="";
+$("matchDate").value="";
+$("matchTime").value="";
+$("needed").value="";
+$("phone").value="";
+
+notify("تم نشر المباراة بنجاح! ⚽");
+
+}catch(error){
+
+console.error(error);
+
+notify("خطأ في النشر: "+error.message);
+
+}
+
+$("publishBtn").disabled=false;
 
 };
 
 
-// جلب المباريات مباشرة
+// LOAD MATCHES
 
 function listenMatches(){
 
-  if(unsubscribeMatches) unsubscribeMatches();
+if(unsubMatches)unsubMatches();
 
-  unsubscribeMatches = onSnapshot(
-    collection(db,"matches"),
+unsubMatches=onSnapshot(
 
-    snapshot=>{
+collection(db,"matches"),
 
-      allMatches=[];
+snapshot=>{
 
-      snapshot.forEach(item=>{
+allMatches=[];
 
-        allMatches.push({
-          id:item.id,
-          ...item.data()
-        });
+snapshot.forEach(item=>{
 
-      });
+allMatches.push({
+id:item.id,
+...item.data()
+});
 
-      allMatches.sort((a,b)=>{
+});
 
-        const dateA = (a.date || "")+" "+(a.time || "");
-        const dateB = (b.date || "")+" "+(b.time || "");
+allMatches.sort((a,b)=>{
 
-        return dateA.localeCompare(dateB);
+const A=(a.date||"")+" "+(a.time||"");
+const B=(b.date||"")+" "+(b.time||"");
 
-      });
+return A.localeCompare(B);
 
-      applyFilters();
+});
 
-    },
+applyFilters();
 
-    error=>{
-      console.error(error);
-      $("matches").innerHTML =
-        '<div class="empty">تعذر تحميل المباريات.</div>';
-    }
+},
 
-  );
+error=>{
+
+console.error(error);
+
+$("matches").innerHTML=
+'<div class="empty">خطأ في تحميل المباريات: '+
+escapeHTML(error.message)+'</div>';
+
+}
+
+);
 
 }
 
 
-// البحث والتصفية
+// FILTER
 
-window.applyFilters = function(){
+window.applyFilters=function(){
 
-  const type = $("filterType").value;
-  const city = $("filterCity").value;
+const type=$("filterType").value;
+const city=$("filterCity").value;
 
-  const filtered = allMatches.filter(match=>{
+const filtered=allMatches.filter(m=>{
 
-    const typeOK = !type || match.type === type;
-    const cityOK = !city || match.city === city;
+return (!type || m.type===type) &&
+(!city || m.city===city);
 
-    return typeOK && cityOK;
+});
 
-  });
-
-  displayMatches(filtered);
+displayMatches(filtered);
 
 };
 
-window.resetFilters = function(){
+window.resetFilters=function(){
 
-  $("filterType").value="";
-  $("filterCity").value="";
+$("filterType").value="";
+$("filterCity").value="";
 
-  displayMatches(allMatches);
+displayMatches(allMatches);
 
 };
 
 
-// عرض المباريات
+// DISPLAY MATCHES
 
 function displayMatches(matches){
 
-  const box = $("matches");
+const box=$("matches");
 
-  if(!matches.length){
+const available=matches.filter(m=>
+m.isClosed!==true &&
+Number(m.needed)>0
+);
 
-    box.innerHTML =
-      '<div class="empty">ما كايناش مباريات حاليا.</div>';
+if(!available.length){
 
-    return;
+box.innerHTML=
+'<div class="empty">ما كايناش مباريات متاحة حاليا.</div>';
 
-  }
+return;
 
-  box.innerHTML = matches.map(match=>{
+}
 
-    const isOwner =
-      currentUser && match.ownerId === currentUser.uid;
+box.innerHTML=available.map(m=>{
 
-    const full =
-      Number(match.currentPlayers || 1) >=
-      Number(match.maxPlayers || 0);
+const owner=m.createdBy===currentUser.uid;
 
-    const isOpen = match.status === "open";
+return `
 
-    let action = "";
+<div class="match">
 
-    if(isOwner){
+<span class="badge">${escapeHTML(m.type)}</span>
 
-      action = '<button class="secondary" disabled>هذه مباراتك</button>';
+<h3>⚽ ${escapeHTML(m.city)}</h3>
 
-    }else if(full){
+<p>👤 المنظم: ${escapeHTML(m.createdByName)}</p>
 
-      action = '<button class="danger" disabled>المباراة مكتملة</button>';
+<p>📍 الحي: ${escapeHTML(m.district)}</p>
 
-    }else if(!isOpen){
+<p>🏟️ الملعب: ${escapeHTML(m.ground)}</p>
 
-      action = '<button class="danger" disabled>المباراة مغلقة</button>';
+<p>📅 التاريخ: ${escapeHTML(m.date)}</p>
 
-    }else{
+<p>🕒 الوقت: ${escapeHTML(m.time)}</p>
 
-      action =
-        `<button onclick="joinMatch('${match.id}')">
-          طلب الانضمام ⚽
-        </button>`;
+<p>👥 اللاعبين المطلوبين: ${Number(m.needed)}</p>
 
-    }
+${owner
+? '<button class="secondary" disabled>هذه مباراتك</button>'
+: `<button onclick="joinMatch('${m.id}')">طلب الانضمام ⚽</button>`
+}
 
-    return `
+</div>
 
-      <div class="match">
+`;
 
-        <span class="badge">
-          ${escapeHTML(match.type)}
-        </span>
-
-        <h3>⚽ ${escapeHTML(match.city)}</h3>
-
-        <p>👤 المنظم: ${escapeHTML(match.playerName)}</p>
-
-        <p>📍 المنطقة: ${escapeHTML(match.neighborhood || "غير محدد")}</p>
-
-        <p>📅 التاريخ: ${escapeHTML(match.date)}</p>
-
-        <p>🕒 الوقت: ${escapeHTML(match.time)}</p>
-
-        <p>👥 اللاعبون:
-          ${Number(match.currentPlayers || 1)}
-          /
-          ${Number(match.maxPlayers)}
-        </p>
-
-        <p>📌 الحالة:
-          ${isOpen ? "مفتوحة" : "مغلقة"}
-        </p>
-
-        ${action}
-
-      </div>
-
-    `;
-
-  }).join("");
+}).join("");
 
 }
 
 
-// طلب الانضمام
+// JOIN MATCH
 
-window.joinMatch = async function(matchId){
+window.joinMatch=async function(matchId){
 
-  if(!currentUser){
-    notify("انتظر الاتصال.");
-    return;
-  }
+if(!currentUser){
 
-  const matchRef = doc(db,"matches",matchId);
+notify("انتظر تسجيل الدخول.");
 
-  try{
+return;
 
-    const matchSnap = await getDoc(matchRef);
+}
 
-    if(!matchSnap.exists()){
-      notify("هذه المباراة لم تعد موجودة.");
-      return;
-    }
+const name=$("playerName").value.trim();
 
-    const match = matchSnap.data();
+if(!name){
 
-    if(match.ownerId === currentUser.uid){
-      notify("هذه مباراتك أنت.");
-      return;
-    }
+notify("دخل الاسم ديالك أولا.");
 
-    if(match.status !== "open"){
-      notify("المباراة مغلقة.");
-      return;
-    }
+return;
 
-    if(Number(match.currentPlayers || 1) >=
-       Number(match.maxPlayers)){
+}
 
-      notify("المباراة مكتملة.");
-      return;
+try{
 
-    }
+await saveProfile(name);
 
-    const requestRef =
-      doc(db,"joinRequests",currentUser.uid);
+const matchRef=doc(db,"matches",matchId);
 
-    const oldRequest = await getDoc(requestRef);
+const matchSnap=await getDoc(matchRef);
 
-    if(oldRequest.exists()){
+if(!matchSnap.exists()){
 
-      const old = oldRequest.data();
+notify("المباراة غير موجودة.");
 
-      if(old.matchId === matchId &&
-         (old.status === "pending" ||
-          old.status === "accepted")){
+return;
 
-        notify("سبق لك إرسال طلب لهذه المباراة.");
-        return;
+}
 
-      }
+const match=matchSnap.data();
 
-    }
+if(match.createdBy===currentUser.uid){
 
-    await updateDocIfExistsOrCreate(
-      requestRef,
-      {
-        matchId:matchId,
-        requesterId:currentUser.uid,
-        requesterName:
-          $("playerName").value.trim() || "لاعب MATCHI",
-        organizerId:match.ownerId,
-        matchCity:match.city,
-        matchType:match.type,
-        status:"pending",
-        createdAt:serverTimestamp()
-      }
-    );
+notify("ما تقدرش تطلب الانضمام لمباراتك.");
 
-    notify("تم إرسال طلب الانضمام بنجاح! 📩");
+return;
 
-  }catch(error){
+}
 
-    console.error(error);
-    notify("تعذر إرسال الطلب. تحقق من إعدادات Firebase.");
+if(match.isClosed===true || Number(match.needed)<=0){
 
-  }
+notify("المباراة مكتملة أو مغلقة.");
+
+return;
+
+}
+
+const requestRef=doc(
+db,
+"matches",
+matchId,
+"joinRequests",
+currentUser.uid
+);
+
+const oldRequest=await getDoc(requestRef);
+
+if(oldRequest.exists()){
+
+const status=oldRequest.data().status;
+
+if(status==="pending"){
+
+notify("طلبك ما زال في الانتظار.");
+
+return;
+
+}
+
+if(status==="accepted"){
+
+notify("تم قبولك من قبل.");
+
+return;
+
+}
+
+}
+
+await setDoc(requestRef,{
+
+userId:currentUser.uid,
+displayName:name,
+status:"pending",
+createdAt:serverTimestamp()
+
+});
+
+notify("تم إرسال طلب الانضمام بنجاح! 📩");
+
+}catch(error){
+
+console.error(error);
+
+notify("تعذر إرسال الطلب: "+error.message);
+
+}
 
 };
 
 
-// إنشاء أو تحديث الطلب
-
-async function updateDocIfExistsOrCreate(ref,data){
-
-  const snap = await getDoc(ref);
-
-  if(snap.exists()){
-    await updateDoc(ref,data);
-  }else{
-    await import("https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js")
-      .then(module=>module.setDoc(ref,data));
-  }
-
-}
-
-
-// طلبات الانضمام الخاصة بالمستخدم
+// MY REQUESTS
 
 function listenMyRequests(){
 
-  if(unsubscribeMyRequests) unsubscribeMyRequests();
+if(unsubMyRequests)unsubMyRequests();
 
-  const q = query(
-    collection(db,"joinRequests"),
-    where("requesterId","==",currentUser.uid)
-  );
+const q=query(
+collectionGroupSafe(),
+where("userId","==",currentUser.uid)
+);
 
-  unsubscribeMyRequests = onSnapshot(q,snapshot=>{
+unsubMyRequests=onSnapshot(q,snapshot=>{
 
-    const box = $("myRequests");
+const box=$("myRequests");
 
-    if(snapshot.empty){
+if(snapshot.empty){
 
-      box.innerHTML =
-        '<div class="empty">لم ترسل أي طلب بعد.</div>';
+box.innerHTML=
+'<div class="empty">لم ترسل أي طلب بعد.</div>';
 
-      return;
+return;
 
-    }
+}
 
-    box.innerHTML="";
+box.innerHTML="";
 
-    snapshot.forEach(item=>{
+snapshot.forEach(item=>{
 
-      const r=item.data();
+const r=item.data();
 
-      const statusText =
-        r.status === "accepted" ? "✅ تم قبول طلبك" :
-        r.status === "rejected" ? "❌ تم رفض طلبك" :
-        "⏳ في انتظار الموافقة";
+const status=
+r.status==="accepted"?"✅ تم قبول طلبك":
+r.status==="rejected"?"❌ تم رفض طلبك":
+"⏳ في انتظار الموافقة";
 
-      box.innerHTML += `
+box.innerHTML+=`
 
-        <div class="match">
+<div class="match">
 
-          <h3>${escapeHTML(r.matchCity)}</h3>
+<h3>طلب انضمام</h3>
 
-          <p>${escapeHTML(r.matchType)}</p>
+<p>الحالة: ${status}</p>
 
-          <p>${statusText}</p>
+</div>
 
-        </div>
+`;
 
-      `;
+});
 
-    });
+},error=>{
 
-  },error=>{
+console.error("My requests:",error);
 
-    console.error(error);
+boxError("myRequests",error);
 
-  });
+});
 
 }
 
 
-// طلبات المنظم
+// COLLECTION GROUP
+
+import {
+collectionGroup
+}
+from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
+
+function collectionGroupSafe(){
+
+return collectionGroup(db,"joinRequests");
+
+}
+
+
+// INCOMING REQUESTS
 
 function listenIncomingRequests(){
 
-  if(unsubscribeIncoming) unsubscribeIncoming();
+if(unsubIncoming)unsubIncoming();
 
-  const q = query(
-    collection(db,"joinRequests"),
-    where("organizerId","==",currentUser.uid)
-  );
+const q=query(
+collection(db,"matches")
+);
 
-  unsubscribeIncoming = onSnapshot(q,snapshot=>{
+unsubIncoming=onSnapshot(q,async snapshot=>{
 
-    const box=$("incomingRequests");
+const box=$("incomingRequests");
 
-    const requests=[];
+let html="";
 
-    snapshot.forEach(item=>{
+for(const matchDoc of snapshot.docs){
 
-      requests.push({
-        id:item.id,
-        ...item.data()
-      });
+const m=matchDoc.data();
 
-    });
+if(m.createdBy!==currentUser.uid)continue;
 
-    if(!requests.length){
+const requestsRef=collection(
+db,
+"matches",
+matchDoc.id,
+"joinRequests"
+);
 
-      box.innerHTML =
-        '<div class="empty">لا توجد طلبات انضمام.</div>';
+const requests=await getDoc(
+doc(db,"matches",matchDoc.id)
+);
 
-      return;
+const {getDocs}=await import(
+"https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js"
+);
 
-    }
+const requestSnapshot=await getDocs(requestsRef);
 
-    box.innerHTML="";
+requestSnapshot.forEach(rDoc=>{
 
-    requests.forEach(r=>{
+const r=rDoc.data();
 
-      const pending = r.status === "pending";
+html+=`
 
-      box.innerHTML += `
+<div class="match">
 
-        <div class="match">
+<h3>📩 طلب انضمام</h3>
 
-          <h3>📩 طلب لاعب جديد</h3>
+<p>⚽ المباراة: ${escapeHTML(m.city)}</p>
 
-          <p>👤 اللاعب: ${escapeHTML(r.requesterName)}</p>
+<p>👤 اللاعب: ${escapeHTML(r.displayName)}</p>
 
-          <p>📍 المدينة: ${escapeHTML(r.matchCity)}</p>
+<p>الحالة: ${escapeHTML(r.status)}</p>
 
-          <p>⚽ النوع: ${escapeHTML(r.matchType)}</p>
+${r.status==="pending"?`
 
-          <p>الحالة: ${escapeHTML(r.status)}</p>
+<button onclick="decideRequest('${matchDoc.id}','${rDoc.id}','accepted')">
+قبول اللاعب ✅
+</button>
 
-          ${
-            pending
-            ? `
-              <button onclick="decideRequest('${r.id}','accepted')">
-                قبول الطلب ✅
-              </button>
+<button class="danger" onclick="decideRequest('${matchDoc.id}','${rDoc.id}','rejected')">
+رفض الطلب ❌
+</button>
 
-              <button class="danger"
-                onclick="decideRequest('${r.id}','rejected')">
-                رفض الطلب ❌
-              </button>
-            `
-            : ""
-          }
+`:""}
 
-        </div>
+</div>
 
-      `;
+`;
 
-    });
+});
 
-  },error=>{
+}
 
-    console.error(error);
+box.innerHTML=html ||
+'<div class="empty">لا توجد طلبات حاليا.</div>';
 
-  });
+},error=>{
+
+console.error(error);
+
+boxError("incomingRequests",error);
+
+});
 
 }
 
 
-// قبول أو رفض الطلب
+// ACCEPT OR REJECT
 
-window.decideRequest = async function(requestId,decision){
+window.decideRequest=async function(matchId,userId,decision){
 
-  if(!currentUser) return;
+if(!["accepted","rejected"].includes(decision))return;
 
-  if(!["accepted","rejected"].includes(decision)) return;
+try{
 
-  const requestRef = doc(db,"joinRequests",requestId);
+const matchRef=doc(db,"matches",matchId);
 
-  try{
+const requestRef=doc(
+db,
+"matches",
+matchId,
+"joinRequests",
+userId
+);
 
-    await runTransaction(db,async transaction=>{
+await runTransaction(db,async transaction=>{
 
-      const requestSnap =
-        await transaction.get(requestRef);
+const matchSnap=await transaction.get(matchRef);
+const requestSnap=await transaction.get(requestRef);
 
-      if(!requestSnap.exists()){
-        throw new Error("REQUEST_NOT_FOUND");
-      }
+if(!matchSnap.exists() || !requestSnap.exists()){
 
-      const request=requestSnap.data();
+throw new Error("المباراة أو الطلب غير موجود.");
 
-      if(request.organizerId !== currentUser.uid){
-        throw new Error("NOT_AUTHORIZED");
-      }
+}
 
-      if(request.status !== "pending"){
-        throw new Error("ALREADY_PROCESSED");
-      }
+const m=matchSnap.data();
+const r=requestSnap.data();
 
-      if(decision === "accepted"){
+if(m.createdBy!==currentUser.uid){
 
-        const matchRef =
-          doc(db,"matches",request.matchId);
+throw new Error("غير مسموح لك.");
 
-        const matchSnap =
-          await transaction.get(matchRef);
+}
 
-        if(!matchSnap.exists()){
-          throw new Error("MATCH_NOT_FOUND");
-        }
+if(r.status!=="pending"){
 
-        const match=matchSnap.data();
+throw new Error("تمت معالجة هذا الطلب من قبل.");
 
-        if(match.ownerId !== currentUser.uid){
-          throw new Error("NOT_MATCH_OWNER");
-        }
+}
 
-        const current =
-          Number(match.currentPlayers || 1);
+if(decision==="accepted"){
 
-        const maximum =
-          Number(match.maxPlayers || 0);
+if(m.isClosed===true || Number(m.needed)<=0){
 
-        if(match.status !== "open" || current >= maximum){
-          throw new Error("MATCH_FULL");
-        }
+throw new Error("المباراة مكتملة.");
 
-        const newCount=current+1;
+}
 
-        transaction.update(matchRef,{
+const remaining=Number(m.needed)-1;
 
-          currentPlayers:newCount,
+transaction.update(matchRef,{
 
-          status:
-            newCount >= maximum ? "full" : "open"
+needed:remaining,
+isClosed:remaining===0
 
-        });
+});
 
-      }
+}
 
-      transaction.update(requestRef,{
-        status:decision,
-        processedAt:serverTimestamp()
-      });
+transaction.update(requestRef,{
 
-    });
+status:decision
 
-    notify(
-      decision === "accepted"
-      ? "تم قبول اللاعب بنجاح! ✅"
-      : "تم رفض طلب الانضمام."
-    );
+});
 
-  }catch(error){
+});
 
-    console.error(error);
+notify(
+decision==="accepted"
+?"تم قبول اللاعب بنجاح! ✅"
+:"تم رفض الطلب."
+);
 
-    if(error.message === "MATCH_FULL"){
-      notify("المباراة مكتملة.");
-    }else if(error.message === "ALREADY_PROCESSED"){
-      notify("تمت معالجة هذا الطلب من قبل.");
-    }else{
-      notify("تعذر معالجة الطلب. تحقق من صلاحيات Firebase.");
-    }
+}catch(error){
 
-  }
+console.error(error);
+
+notify(error.message);
+
+}
 
 };
+
+
+function boxError(id,error){
+
+$(id).innerHTML=
+'<div class="empty">تعذر التحميل: '+
+escapeHTML(error.message)+'</div>';
+
+}
 
 </script>
 
